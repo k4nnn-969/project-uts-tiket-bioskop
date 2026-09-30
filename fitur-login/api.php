@@ -17,6 +17,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respond(405, ['message' => 'Metode request tidak didukung.']);
 }
 
+session_set_cookie_params([
+    'httponly' => true,
+    'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+    'samesite' => 'Strict',
+    'path' => '/',
+]);
+session_start();
+
 $input = json_decode(file_get_contents('php://input'), true);
 if (!is_array($input)) {
     respond(400, ['message' => 'Data yang dikirim tidak valid.']);
@@ -26,8 +34,29 @@ $action = $input['action'] ?? '';
 $contact = trim((string) ($input['contact'] ?? ''));
 $password = (string) ($input['password'] ?? '');
 
-if (!in_array($action, ['register', 'login'], true)) {
+if (!in_array($action, ['register', 'login', 'status', 'logout'], true)) {
     respond(400, ['message' => 'Aksi tidak dikenal.']);
+}
+
+if ($action === 'status') {
+    respond(200, [
+        'user' => isset($_SESSION['user_id'])
+            ? ['id' => (int) $_SESSION['user_id'], 'full_name' => $_SESSION['user_name']]
+            : null,
+    ]);
+}
+
+if ($action === 'logout') {
+    $_SESSION = [];
+    session_destroy();
+    setcookie(session_name(), '', [
+        'expires' => time() - 3600,
+        'path' => '/',
+        'httponly' => true,
+        'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
+        'samesite' => 'Strict',
+    ]);
+    respond(200, ['message' => 'Kamu berhasil keluar.']);
 }
 
 if ($contact === '' || strlen($password) < 6) {
@@ -94,13 +123,6 @@ try {
         }
     }
 
-    session_set_cookie_params([
-        'httponly' => true,
-        'secure' => !empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off',
-        'samesite' => 'Strict',
-        'path' => '/',
-    ]);
-    session_start();
     session_regenerate_id(true);
     $_SESSION['user_id'] = (int) $user['id'];
     $_SESSION['user_name'] = $user['full_name'];
