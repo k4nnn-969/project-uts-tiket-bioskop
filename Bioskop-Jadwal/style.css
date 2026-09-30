@@ -69,6 +69,11 @@ button { cursor: pointer; font: inherit; }
 .time-btn:hover:not(.full) { background: var(--blue); color: white; }
 .time-btn.full { border-color: #eaeaea; background: #f9f9f9; color: #b0b0b0; cursor: not-allowed; }
 
+.cinema-info-detail { margin-top: 12px; }
+.cinema-address { font-size: 13px; color: var(--muted); margin: 0 0 12px 0; line-height: 1.5; }
+.facility-tags { display: flex; gap: 8px; flex-wrap: wrap;}
+.f-tag { font-size: 10px; padding: 4px 10px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); color: var(--navy); font-weight: 700; letter-spacing: 0.5px; }
+
 @media (max-width: 768px) {
   .cinema-layout { flex-direction: column; }
   .movie-showtime { flex-direction: column; }
