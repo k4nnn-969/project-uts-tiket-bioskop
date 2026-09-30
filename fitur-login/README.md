@@ -35,4 +35,19 @@ php -S localhost:8000
 
 Buka `http://localhost:8000/fitur-pendukung/`. Form login/daftar mengirim request ke `fitur-login/api.php`. Membuka HTML lewat `file://` atau server statis saja tidak dapat menjalankan endpoint PHP.
 
-Endpoint menerima JSON `POST` dengan `action` bernilai `register` atau `login`, `contact` berisi email/nomor ponsel, dan `password`. Pendaftaran juga membutuhkan `full_name`. Setelah autentikasi berhasil, API membuat session PHP.
+## Cara kerja
+
+- `fitur-pendukung/auth.js` mengatur tab Login/Daftar, mengirim form, menampilkan status akun, dan menangani logout.
+- `api.php` memvalidasi data, memeriksa kata sandi, dan membuat atau menghapus session.
+- `database.sql` membuat database dan tabel pengguna.
+
+Endpoint menerima JSON `POST` dengan `action` berikut:
+
+| `action` | Data tambahan | Fungsi |
+| --- | --- | --- |
+| `register` | `contact`, `full_name`, `password` | Membuat akun baru |
+| `login` | `contact`, `password` | Masuk ke akun |
+| `status` | Tidak ada | Memeriksa apakah session masih aktif |
+| `logout` | Tidak ada | Menghapus session |
+
+`contact` bisa berupa email atau nomor ponsel. Kata sandi disimpan sebagai hash, sedangkan session menggunakan cookie HTTP-only. Form meminta kata sandi minimal 6 karakter. Untuk membuat akun, buka halaman lalu pilih **Daftar**; sesudah berhasil, nama akun muncul di navigasi. Tombol **Keluar** mengakhiri session.
