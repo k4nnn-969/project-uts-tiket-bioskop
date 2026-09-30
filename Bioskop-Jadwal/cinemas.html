@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TIX ID | Jadwal Bioskop</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../fitur-login/auth.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+  <div class="topline"></div>
+  <header class="header">
+    <div class="nav">
+      <a class="brand" href="../fitur-pendukung/index.html"><span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span></a>
+      <nav class="links">
+        <a href="../fitur-pendukung/index.html#promo">Promotions</a>
+        <a href="../fitur-pendukung/index.html#segera-tayang">Coming Soon</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="location"><span id="current-city">Jakarta</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="section cinema-section">
+    <div class="section-heading">
+      <div>
+        <p class="kicker">Pilih Lokasi</p>
+        <h2>Daftar Bioskop & Jadwal</h2>
+      </div>
+      <div class="date-tabs">
+        <button class="filter active-tab" type="button">Hari Ini</button>
+        <button class="filter" type="button">Besok</button>
+      </div>
+    </div>
+
+    <div class="cinema-layout">
+      <aside class="cinema-list">
+        <div class="cinema-card active-card" data-cinema="Senayan City XXI">
+          <h3>Senayan City XXI</h3>
+          <p>Jakarta Pusat</p>
+        </div>
+        <div class="cinema-card" data-cinema="Kelapa Gading IMAX">
+          <h3>Kelapa Gading IMAX</h3>
+          <p>Jakarta Utara</p>
+        </div>
+        <div class="cinema-card" data-cinema="Pondok Indah 1 XXI">
+          <h3>Pondok Indah 1 XXI</h3>
+          <p>Jakarta Selatan</p>
+        </div>
+      </aside>
+
+      <section class="showtimes-panel">
+        <div class="panel-heading">
+          <h2 id="selectedCinemaTitle">Senayan City XXI</h2>
+        </div>
+        <div class="panel-content">
+          <article class="movie-showtime">
+            <div class="poster-small">
+              <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=85" alt="The Last Frontier">
+            </div>
+            <div class="movie-details">
+              <p class="genre">Action · Petualangan</p>
+              <h3>The Last Frontier</h3>
+              <div class="tags">
+                <span class="promo-tag">⭐ 8.5</span>
+              </div>
+              <p class="ticket-type">2D Regular - Rp 50.000</p>
+              <div class="time-slots">
+                <a class="time-btn" href="../Pemesanan-Tiket/index.html?film=last-frontier&amp;jam=12%3A30">12:30</a>
+                <a class="time-btn" href="../Pemesanan-Tiket/index.html?film=last-frontier&amp;jam=14%3A45">14:45</a>
+                <a class="time-btn" href="../Pemesanan-Tiket/index.html?film=last-frontier&amp;jam=17%3A00">17:00</a>
+                <button class="time-btn full" disabled>19:15 (Penuh)</button>
+              </div>
+            </div>
+          </article>
+          
+          <article class="movie-showtime">
+            <div class="poster-small">
+              <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=300&q=85" alt="After the Rain">
+            </div>
+            <div class="movie-details">
+              <p class="genre">Drama · Romance</p>
+              <h3>After the Rain</h3>
+              <div class="tags">
+                <span class="promo-tag">⭐ 9.0</span>
+              </div>
+              <p class="ticket-type">2D Regular - Rp 45.000</p>
+              <div class="time-slots">
+                <a class="time-btn" href="../Pemesanan-Tiket/index.html?film=after-the-rain&amp;jam=13%3A00">13:00</a>
+                <a class="time-btn" href="../Pemesanan-Tiket/index.html?film=after-the-rain&amp;jam=15%3A15">15:15</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a class="brand footer-brand" href="#"><span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span></a>
+        <p class="footer-caption">Cari film. Pesan tiket. Nikmati ceritanya.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script src="../fitur-pendukung/auth.js"></script>
+</body>
+</html>

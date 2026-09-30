@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10233f">
+  <title>TIX ID | Pemesanan Tiket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="../fitur-login/auth.css">
+</head>
+<body>
+  <div class="topline"></div>
+  <header class="header">
+    <div class="nav">
+      <a class="brand" href="../fitur-pendukung/index.html" aria-label="TIX ID Beranda"><span class="brand-tix">TIX</span><span class="brand-bolt" aria-hidden="true"></span><span class="brand-id">ID</span></a>
+      <nav class="links" aria-label="Navigasi utama">
+        <a href="../fitur-pendukung/index.html#segera-tayang">Film</a>
+        <a href="../Bioskop-Jadwal/cinemas.html">Jadwal bioskop</a>
+      </nav>
+      <a class="help-link" href="../fitur-pendukung/index.html">Bantuan</a>
+    </div>
+  </header>
+
+  <main class="booking-page">
+    <div class="page-heading">
+      <a class="back-link" href="../Bioskop-Jadwal/cinemas.html" aria-label="Kembali ke jadwal"><span aria-hidden="true">←</span> Kembali ke jadwal</a>
+      <p class="eyebrow">PESAN TIKET BIOSKOP</p>
+      <h1>Satu langkah lagi<br><span>menuju cerita seru.</span></h1>
+    </div>
+
+    <ol class="progress" aria-label="Tahapan pemesanan">
+      <li class="progress-item is-current" data-progress="seats"><span class="progress-number">1</span><span>Pilih kursi</span></li>
+      <li class="progress-line" aria-hidden="true"></li>
+      <li class="progress-item" data-progress="summary"><span class="progress-number">2</span><span>Ringkasan</span></li>
+      <li class="progress-line" aria-hidden="true"></li>
+      <li class="progress-item" data-progress="payment"><span class="progress-number">3</span><span>Pembayaran</span></li>
+    </ol>
+
+    <div class="booking-layout">
+      <div class="booking-main">
+        <section class="movie-strip" aria-label="Detail film dan jadwal">
+          <img class="movie-poster" src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=85" alt="Suasana bioskop untuk The Last Frontier">
+          <div class="movie-copy">
+            <p class="movie-label"><span id="movie-genre">ACTION · PETUALANGAN</span> <span id="movie-rating-age">13+</span></p>
+            <h2 id="movie-title">The Last Frontier</h2>
+            <p class="cinema-name" id="cinema-name">Senayan City XXI, Jakarta</p>
+            <div class="movie-meta"><span id="show-date">Jumat, 2 Oktober 2026</span><span class="meta-dot"></span><span id="show-time">17:00</span><span class="meta-dot"></span><span>2D Regular</span></div>
+          </div>
+          <span class="rating"><span aria-hidden="true">★</span> 8.5</span>
+        </section>
+
+        <section class="booking-stage is-active" id="stage-seats" aria-labelledby="seat-heading">
+          <div class="mobile-seat-head"><a href="../Bioskop-Jadwal/cinemas.html" aria-label="Kembali ke jadwal">‹</a><h2>Pilih Kursi</h2></div>
+          <div class="stage-heading">
+            <div><p class="kicker">TAHAP 01</p><h2 id="seat-heading">Pilih kursimu</h2></div>
+            <span class="seat-price">Rp50.000 <small>/ kursi</small></span>
+          </div>
+          <div class="seat-legend" aria-label="Keterangan kursi">
+            <span><i class="seat-swatch available"></i>Tersedia</span>
+            <span><i class="seat-swatch selected"></i>Pilihanmu</span>
+            <span><i class="seat-swatch occupied"></i>Terisi</span>
+          </div>
+          <div class="seat-map" id="seat-map" aria-label="Peta pilihan kursi"></div>
+          <div class="screen-area"><div class="screen-glow"></div><div class="screen-shape"></div><span>LAYAR BIOSKOP</span></div>
+          <p class="seat-note" id="seat-note" aria-live="polite">Pilih hingga 6 kursi untuk melanjutkan.</p>
+        </section>
+
+        <section class="booking-stage" id="stage-summary" aria-labelledby="summary-heading" hidden>
+          <div class="stage-heading"><div><p class="kicker">TAHAP 02</p><h2 id="summary-heading">Periksa pesananmu</h2></div><span class="stage-icon" aria-hidden="true">✓</span></div>
+          <div class="ticket-preview">
+            <div class="preview-top"><div><p class="kicker">TIKET BIOSKOP</p><h3 id="preview-movie">The Last Frontier</h3></div><span class="preview-mark">TIX<br>ID</span></div>
+            <div class="preview-details"><div><span>BIOSKOP</span><strong id="preview-cinema">Senayan City XXI</strong></div><div><span>TANGGAL & JAM</span><strong><b id="preview-date">Jumat, 2 Oktober 2026</b> · <b id="preview-time">17:00</b></strong></div><div><span>KURSI</span><strong id="preview-seats">-</strong></div></div>
+            <div class="ticket-perforation"><i></i><span></span><i></i></div>
+            <p class="preview-foot">Tunjukkan tiket digital di pintu masuk studio.</p>
+          </div>
+          <section class="summary-payment" aria-labelledby="summary-payment-heading">
+            <div class="summary-payment-heading"><h3 id="summary-payment-heading">Metode Pembayaran</h3><span id="summary-payment-name">QRIS dipilih</span></div>
+            <div class="quick-payment-list" role="group" aria-label="Metode pembayaran rekomendasi">
+              <button class="quick-payment is-selected" type="button" data-quick-method="QRIS" aria-pressed="true"><span class="payment-logo qris-logo">QRIS</span><span>QRIS</span></button>
+              <button class="quick-payment" type="button" data-quick-method="DANA" aria-pressed="false"><span class="payment-logo dana-logo">DANA</span><span>DANA</span></button>
+              <button class="quick-payment" type="button" data-quick-method="Indodana" aria-pressed="false"><span class="payment-logo indodana-logo">indo</span><span>Indodana</span></button>
+            </div>
+            <button class="other-payments-link" type="button" data-next="payment">Pilih pembayaran lainnya <span aria-hidden="true">›</span></button>
+          </section>
+          <div class="promo-entry"><label for="promo-code">Punya kode promo?</label><div class="promo-controls"><input id="promo-code" type="text" placeholder="Masukkan kode" autocomplete="off"><button type="button" id="apply-promo">Pakai kode</button></div><p id="promo-message" aria-live="polite">Coba kode TIXHEMAT untuk diskon Rp10.000.</p></div>
+          <div class="stage-actions"><button class="button-secondary" type="button" data-back="seats">← Ubah kursi</button></div>
+        </section>
+
+        <section class="booking-stage" id="stage-payment" aria-labelledby="payment-heading" hidden>
+          <div class="stage-heading"><div><p class="kicker">TAHAP 03</p><h2 id="payment-heading">Pilih pembayaran</h2></div><span class="secure-note"><span aria-hidden="true">●</span> Aman & terenkripsi</span></div>
+          <fieldset class="payment-options" id="payment-options" aria-label="Metode pembayaran">
+            <legend class="visually-hidden">Pilih satu metode pembayaran</legend>
+            <section class="payment-category"><h3>Rekomendasi</h3><p>Pilih metode pembayaran yang praktis untukmu.</p>
+              <label class="payment-option"><input type="radio" name="payment-method" value="DANA"><span class="payment-logo dana-logo">DANA</span><span class="payment-label"><strong>DANA</strong><small>Saldo DANA dan kartu kredit/debit</small></span><span class="payment-check" aria-hidden="true"></span></label>
+              <label class="payment-option"><input type="radio" name="payment-method" value="Indodana"><span class="payment-logo indodana-logo">indo</span><span class="payment-label"><strong>Indodana</strong><small>Pembayaran melalui Indodana</small></span><span class="payment-check" aria-hidden="true"></span></label>
+            </section>
+            <section class="payment-category"><h3>E-wallet</h3><p>Pastikan saldo tersedia sebelum melanjutkan.</p>
+              <label class="payment-option"><input type="radio" name="payment-method" value="ShopeePay/SPayLater"><span class="payment-logo shopee-logo">S</span><span class="payment-label"><strong>ShopeePay/SPayLater</strong><small>ShopeePay atau SPayLater</small></span><span class="payment-check" aria-hidden="true"></span></label>
+              <label class="payment-option"><input type="radio" name="payment-method" value="GoPay"><span class="payment-logo gopay-logo">go</span><span class="payment-label"><strong>GoPay</strong><small>Saldo GoPay</small></span><span class="payment-check" aria-hidden="true"></span></label>
+              <label class="payment-option"><input type="radio" name="payment-method" value="OVO"><span class="payment-logo ovo-logo">OVO</span><span class="payment-label"><strong>OVO</strong><small>OVO Cash</small></span><span class="payment-check" aria-hidden="true"></span></label>
+            </section>
+            <section class="payment-category"><h3>QRIS &amp; lainnya</h3>
+              <label class="payment-option"><input type="radio" name="payment-method" value="QRIS"><span class="payment-logo qris-logo">QRIS</span><span class="payment-label"><strong>QRIS</strong><small>Pindai kode QR dari aplikasi pembayaran</small></span><span class="payment-check" aria-hidden="true"></span></label>
+              <label class="payment-option"><input type="radio" name="payment-method" value="blu by BCA Digital"><span class="payment-logo blu-logo">blu</span><span class="payment-label"><strong>blu by BCA Digital</strong><small>Pembayaran dari akun blu</small></span><span class="payment-check" aria-hidden="true"></span></label>
+            </section>
+          </fieldset>
+          <div class="contact-field"><label for="contact-email">Email untuk menerima tiket</label><input id="contact-email" type="email" placeholder="nama@email.com" autocomplete="email" required><small>Tiket digital akan dikirim setelah pembayaran.</small></div>
+          <label class="terms-check"><input id="terms-check" type="checkbox"><span>Saya menyetujui <a href="#ketentuan">syarat pemesanan</a> dan kebijakan privasi.</span></label>
+          <div class="stage-actions"><button class="button-secondary" type="button" data-back="summary">← Kembali</button><button class="button-primary" type="button" id="pay-button">Bayar sekarang <span aria-hidden="true">→</span></button></div>
+          <p class="demo-disclaimer">Simulasi pembayaran untuk keperluan demonstrasi. Tidak ada transaksi sungguhan.</p>
+        </section>
+
+        <section class="booking-stage success-stage" id="stage-success" aria-labelledby="success-heading" hidden>
+          <div class="success-symbol" aria-hidden="true">✓</div><p class="kicker">PESANAN SELESAI</p><h2 id="success-heading">Siap untuk nonton!</h2><p class="success-copy">Pesanan simulasi berhasil dibuat. Detail tiketmu sudah siap ditinjau.</p>
+          <div class="success-ticket"><span>KODE PESANAN</span><strong id="booking-code">TIX-000000</strong><span id="success-detail">The Last Frontier · 17:00</span><span id="success-seat-list">Kursi -</span></div>
+          <button class="button-primary" type="button" id="new-order">Pesan tiket lain <span aria-hidden="true">→</span></button>
+        </section>
+      </div>
+
+      <aside class="order-panel" aria-labelledby="order-heading">
+        <div class="order-title"><div><p class="kicker">PESANANMU</p><h2 id="order-heading">Ringkasan</h2></div><span class="ticket-count" id="ticket-count">0 tiket</span></div>
+        <div class="order-movie"><strong id="order-movie-title">The Last Frontier</strong><span id="order-cinema">Senayan City XXI</span><span><b id="order-date">Jumat, 2 Okt</b> · <b id="order-time">17:00</b></span></div>
+        <div class="order-seat-row"><span>Kursi</span><strong id="order-seats">Pilih kursi</strong></div>
+        <div class="price-breakdown"><div><span>Tiket <b id="ticket-quantity">0</b> × <b id="ticket-unit-price">Rp50.000</b></span><strong id="ticket-subtotal">Rp0</strong></div><div><span>Biaya layanan</span><strong id="service-fee">Rp0</strong></div><div class="discount-row" id="discount-row" hidden><span>Promo</span><strong id="discount-amount">−Rp0</strong></div></div>
+        <div class="total-row"><span>Total pembayaran</span><strong id="order-total">Rp0</strong></div>
+        <div class="mobile-order-summary"><strong id="mobile-total">Rp0</strong><span id="mobile-seat-summary">Kursi: -</span></div>
+        <button class="button-primary order-continue" type="button" id="continue-button" disabled><span id="continue-label">Pilih kursi dulu</span><span class="mobile-continue-label">RINGKASAN</span><span aria-hidden="true">→</span></button>
+        <p class="order-foot"><span aria-hidden="true">◈</span> Tiket hanya berlaku untuk jadwal yang dipilih.</p>
+        <div class="order-divider"></div>
+        <div class="support-note"><span class="support-badge" aria-hidden="true">?</span><div><strong>Butuh bantuan?</strong><a href="mailto:bantuan@tix.id">Hubungi customer care</a></div></div>
+      </aside>
+    </div>
+  </main>
+
+  <footer class="footer"><a class="brand" href="../fitur-pendukung/index.html" aria-label="TIX ID"><span class="brand-tix">TIX</span><span class="brand-bolt" aria-hidden="true"></span><span class="brand-id">ID</span></a><p>© 2026 TIX ID · Cari film. Pesan tiket. Nikmati ceritanya.</p></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script>
+  <script src="../fitur-pendukung/auth.js"></script>
+</body>
+</html>
