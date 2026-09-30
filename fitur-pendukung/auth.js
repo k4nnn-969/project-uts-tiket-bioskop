@@ -1,5 +1,81 @@
 (() => {
-  const apiUrl = '../fitur-login/api.php';
+  function ensureAuthElements() {
+    const nav = document.querySelector('.nav');
+    let accountControls = document.querySelector('.auth-controls, .nav-actions');
+
+    if (!accountControls && nav) {
+      accountControls = document.createElement('div');
+      accountControls.className = 'auth-controls';
+      nav.append(accountControls);
+    }
+
+    if (accountControls && !document.querySelector('[data-open-auth]')) {
+      const openButton = document.createElement('button');
+      openButton.className = 'login';
+      openButton.type = 'button';
+      openButton.dataset.openAuth = '';
+      openButton.textContent = 'Login / Daftar';
+      accountControls.append(openButton);
+    }
+
+    if (accountControls && !document.getElementById('auth-user')) {
+      const accountName = document.createElement('span');
+      accountName.className = 'auth-user';
+      accountName.id = 'auth-user';
+      accountName.setAttribute('aria-live', 'polite');
+      accountName.hidden = true;
+      accountControls.append(accountName);
+    }
+
+    if (accountControls && !document.getElementById('auth-logout')) {
+      const logoutButton = document.createElement('button');
+      logoutButton.className = 'login';
+      logoutButton.id = 'auth-logout';
+      logoutButton.type = 'button';
+      logoutButton.textContent = 'Keluar';
+      logoutButton.hidden = true;
+      accountControls.append(logoutButton);
+    }
+
+    if (!document.getElementById('auth-modal')) {
+      const modal = document.createElement('div');
+      modal.className = 'backdrop';
+      modal.id = 'auth-modal';
+      modal.setAttribute('role', 'presentation');
+      modal.innerHTML = `
+        <section class="modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+          <button class="close" type="button" aria-label="Tutup dialog">×</button>
+          <a class="brand" href="../fitur-pendukung/index.html" aria-label="TIX ID"><span class="brand-tix">TIX</span><span class="brand-id">ID</span></a>
+          <h2 id="auth-title">Selamat datang!</h2>
+          <p class="subtitle">Masuk atau buat akun untuk pengalaman nonton yang lebih personal.</p>
+          <div class="tabs" role="tablist" aria-label="Login atau daftar">
+            <button class="tab" type="button" role="tab" id="tab-login" aria-selected="true">Login</button>
+            <button class="tab" type="button" role="tab" id="tab-register" aria-selected="false">Daftar</button>
+          </div>
+          <form class="auth-form" id="auth-form">
+            <label class="auth-field">Email atau nomor ponsel<input id="auth-contact" type="text" autocomplete="username" placeholder="nama@email.com" required></label>
+            <label class="auth-field" id="name-field" hidden>Nama lengkap<input id="auth-name" type="text" autocomplete="name" placeholder="Nama kamu"></label>
+            <label class="auth-field">Kata sandi<input id="auth-password" type="password" autocomplete="current-password" placeholder="Minimal 6 karakter" minlength="6" required></label>
+            <button class="auth-submit" type="submit" id="auth-submit">Login</button>
+          </form>
+          <p class="legal">Dengan melanjutkan, kamu menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi TIX ID.</p>
+        </section>`;
+      document.body.append(modal);
+    }
+
+    if (!document.getElementById('toast')) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.id = 'toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      document.body.append(toast);
+    }
+  }
+
+  ensureAuthElements();
+
+  const apiUrl = new URL('../fitur-login/api.php', document.baseURI);
   const modal = document.getElementById('auth-modal');
   const form = document.getElementById('auth-form');
   const toast = document.getElementById('toast');
@@ -37,6 +113,9 @@
     const isLoggedIn = Boolean(user);
     accountName.hidden = !isLoggedIn;
     logoutButton.hidden = !isLoggedIn;
+    document.querySelectorAll('[data-open-auth]').forEach((button) => {
+      button.hidden = isLoggedIn;
+    });
     accountName.textContent = isLoggedIn ? `Hai, ${user.full_name}` : '';
   }
 
