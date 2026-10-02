@@ -14,7 +14,7 @@
       openButton.className = 'login';
       openButton.type = 'button';
       openButton.dataset.openAuth = '';
-      openButton.textContent = 'Login / Daftar';
+      openButton.textContent = 'Login';
       accountControls.append(openButton);
     }
 
@@ -47,15 +47,10 @@
           <button class="close" type="button" aria-label="Tutup dialog">×</button>
           <a class="brand" href="../fitur-pendukung/index.html" aria-label="TIX ID"><span class="brand-tix">TIX</span><span class="brand-id">ID</span></a>
           <h2 id="auth-title">Selamat datang!</h2>
-          <p class="subtitle">Masuk atau buat akun untuk pengalaman nonton yang lebih personal.</p>
-          <div class="tabs" role="tablist" aria-label="Login atau daftar">
-            <button class="tab" type="button" role="tab" id="tab-login" aria-selected="true">Login</button>
-            <button class="tab" type="button" role="tab" id="tab-register" aria-selected="false">Daftar</button>
-          </div>
+          <p class="subtitle">Masuk untuk melanjutkan pengalaman nontonmu.</p>
           <form class="auth-form" id="auth-form">
-            <label class="auth-field">Email atau nomor ponsel<input id="auth-contact" type="text" autocomplete="username" placeholder="nama@email.com" required></label>
-            <label class="auth-field" id="name-field" hidden>Nama lengkap<input id="auth-name" type="text" autocomplete="name" placeholder="Nama kamu"></label>
-            <label class="auth-field">Kata sandi<input id="auth-password" type="password" autocomplete="current-password" placeholder="Minimal 6 karakter" minlength="6" required></label>
+            <label class="auth-field">Email<input id="auth-contact" type="text" autocomplete="email" placeholder="nama@email.com" required></label>
+            <label class="auth-field">Kata sandi<input id="auth-password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" required></label>
             <button class="auth-submit" type="submit" id="auth-submit">Login</button>
           </form>
           <p class="legal">Dengan melanjutkan, kamu menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi TIX ID.</p>
@@ -75,38 +70,30 @@
 
   ensureAuthElements();
 
-  const apiUrl = new URL('../fitur-login/api.php', document.baseURI);
   const modal = document.getElementById('auth-modal');
   const form = document.getElementById('auth-form');
   const toast = document.getElementById('toast');
-  const submitButton = document.getElementById('auth-submit');
-  const loginButton = document.getElementById('tab-login');
-  const registerButton = document.getElementById('tab-register');
-  const nameField = document.getElementById('name-field');
   const accountName = document.getElementById('auth-user');
   const logoutButton = document.getElementById('auth-logout');
+  const contactInput = document.getElementById('auth-contact');
+  const passwordInput = document.getElementById('auth-password');
+  const storageKey = 'cinema-booking-user';
   let toastTimer;
+
+  document.querySelector('.tabs')?.remove();
+  document.getElementById('name-field')?.remove();
+  contactInput.type = 'text';
+  contactInput.autocomplete = 'email';
+  contactInput.parentElement.firstChild.textContent = 'Email';
+  passwordInput.removeAttribute('minlength');
+  passwordInput.placeholder = 'Masukkan kata sandi';
+  document.querySelector('.subtitle').textContent = 'Masuk untuk melanjutkan pengalaman nontonmu.';
 
   function showMessage(message) {
     toast.textContent = message;
     toast.classList.add('visible');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => toast.classList.remove('visible'), 3000);
-  }
-
-  async function sendRequest(action, data = {}) {
-    const response = await fetch(apiUrl, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ action, ...data }),
-    });
-    const result = await response.json();
-
-    if (!response.ok) {
-      throw new Error(result.message || 'Permintaan tidak dapat diproses.');
-    }
-
-    return result;
   }
 
   function updateAccount(user) {
@@ -116,22 +103,7 @@
     document.querySelectorAll('[data-open-auth]').forEach((button) => {
       button.hidden = isLoggedIn;
     });
-    accountName.textContent = isLoggedIn ? `Hai, ${user.full_name}` : '';
-  }
-
-  function setMode(mode) {
-    const isRegistering = mode === 'register';
-    loginButton.setAttribute('aria-selected', String(!isRegistering));
-    registerButton.setAttribute('aria-selected', String(isRegistering));
-    nameField.hidden = !isRegistering;
-    document.getElementById('auth-name').required = isRegistering;
-    document.getElementById('auth-password').autocomplete = isRegistering
-      ? 'new-password'
-      : 'current-password';
-    document.getElementById('auth-title').textContent = isRegistering
-      ? 'Buat akun TIX ID'
-      : 'Selamat datang!';
-    submitButton.textContent = isRegistering ? 'Daftar sekarang' : 'Login';
+    accountName.textContent = isLoggedIn ? `Hai, ${user.email}` : '';
   }
 
   function openModal() {
@@ -156,48 +128,29 @@
     if (event.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
   });
 
-  loginButton.addEventListener('click', () => setMode('login'));
-  registerButton.addEventListener('click', () => setMode('register'));
-
-  form.addEventListener('submit', async (event) => {
+  form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const isRegistering = registerButton.getAttribute('aria-selected') === 'true';
-    submitButton.disabled = true;
+    const email = contactInput.value.trim();
+    const password = passwordInput.value;
 
-    try {
-      const result = await sendRequest(isRegistering ? 'register' : 'login', {
-        contact: document.getElementById('auth-contact').value,
-        full_name: document.getElementById('auth-name').value,
-        password: document.getElementById('auth-password').value,
-      });
-
-      updateAccount(result.user);
-      showMessage(`${result.message} Selamat datang, ${result.user.full_name}.`);
-      form.reset();
-      setMode('login');
-      closeModal();
-    } catch (error) {
-      showMessage(error.message || 'Tidak dapat terhubung ke layanan login.');
-    } finally {
-      submitButton.disabled = false;
+    if (!email || !password.trim()) {
+      showMessage('Email dan kata sandi wajib diisi.');
+      return;
     }
+
+    localStorage.setItem(storageKey, email);
+    updateAccount({ email });
+    showMessage(`Login berhasil. Selamat datang, ${email}.`);
+    form.reset();
+    closeModal();
   });
 
-  logoutButton.addEventListener('click', async () => {
-    logoutButton.disabled = true;
-
-    try {
-      const result = await sendRequest('logout');
-      updateAccount(null);
-      showMessage(result.message);
-    } catch (error) {
-      showMessage(error.message || 'Tidak dapat keluar dari akun.');
-    } finally {
-      logoutButton.disabled = false;
-    }
+  logoutButton.addEventListener('click', () => {
+    localStorage.removeItem(storageKey);
+    updateAccount(null);
+    showMessage('Kamu berhasil keluar.');
   });
 
-  sendRequest('status')
-    .then((result) => updateAccount(result.user))
-    .catch(() => {});
+  const savedEmail = localStorage.getItem(storageKey);
+  updateAccount(savedEmail ? { email: savedEmail } : null);
 })();
