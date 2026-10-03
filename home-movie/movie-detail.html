@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10233f">
+  <title>TIX ID | Detail Film</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .detail-hero {
+      background: var(--navy);
+      color: white;
+      padding: 48px 0 60px;
+      position: relative;
+    }
+
+    .detail-container {
+      width: min(1160px, calc(100% - 48px));
+      margin: auto;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .detail-poster {
+      width: 100%;
+      aspect-ratio: 4/5.8;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: var(--shadow);
+      background: #09182d;
+    }
+
+    .detail-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .detail-title {
+      font: 800 36px/1.2 Manrope, sans-serif;
+      margin: 12px 0 16px;
+      color: #ffffff;
+    }
+
+    .detail-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .detail-tag {
+      padding: 5px 12px;
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 11px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .detail-tag.rating {
+      background: var(--yellow);
+      color: var(--navy);
+      border: 0;
+      font-weight: 800;
+    }
+
+    .detail-synopsis-preview {
+      color: #e2e8f0;
+      font-size: 14px;
+      line-height: 1.75;
+      max-width: 680px;
+      margin-top: 14px;
+    }
+
+    .detail-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .buy-btn {
+      background: var(--yellow, #ffc107);
+      color: var(--navy, #10233f);
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      transition: opacity 0.2s;
+    }
+
+    .buy-btn:hover {
+      opacity: 0.9;
+    }
+
+    .remind-btn {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      font-weight: 700;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .remind-btn.is-set {
+      background: #4cd964;
+      color: #10233f;
+      border-color: #4cd964;
+    }
+
+    .content-wrapper {
+      width: min(1160px, calc(100% - 48px));
+      margin: 40px auto 60px;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 36px;
+    }
+
+    .synopsis-card, .trailer-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 28px;
+      margin-bottom: 28px;
+    }
+
+    .card-title {
+      font: 800 20px Manrope, sans-serif;
+      color: var(--ink);
+      margin: 0 0 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .full-synopsis {
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    .video-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #071322;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      gap: 10px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .video-placeholder img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.4;
+    }
+
+    .play-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--yellow);
+      color: var(--navy);
+      display: grid;
+      place-items: center;
+      z-index: 2;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      transition: transform .2s;
+    }
+
+    .video-placeholder:hover .play-icon {
+      transform: scale(1.1);
+    }
+
+    .info-sidebar {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 24px;
+      position: sticky;
+      top: 100px;
+    }
+
+    .info-group {
+      margin-bottom: 18px;
+    }
+
+    .info-group:last-child {
+      margin-bottom: 0;
+    }
+
+    .info-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+
+    .info-value {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+
+    @media (max-width: 850px) {
+      .detail-container {
+        grid-template-columns: 1fr;
+      }
+      .detail-poster {
+        max-width: 200px;
+      }
+      .content-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .info-sidebar {
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+
+  <header class="header">
+    <div class="nav">
+      <a class="brand" href="index.html" aria-label="TIX ID Beranda">
+        <span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span>
+      </a>
+      <nav class="links" id="main-nav" aria-label="Navigasi utama">
+        <a href="index.html#promo">Promotions</a>
+        <a href="index.html#segera-tayang">Coming Soon</a>
+        <a href="index.html#fitur">Fitur Pendukung</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="location" id="location-button" type="button">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span id="current-city">Jakarta</span>
+        </button>
+        <button class="login" type="button" data-open-auth>Login / Register</button>
+      </div>
+      <button class="menu" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="main-nav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- DETAIL HERO SECTION -->
+    <section class="detail-hero">
+      <div class="detail-container">
+        <div class="detail-poster">
+          <img id="detail-poster-img" src="" alt="Poster Film">
+        </div>
+        <div>
+          <span class="eyebrow" id="detail-status">Segera Tayang</span>
+          <h1 class="detail-title" id="detail-title">The Last Frontier</h1>
+          
+          <div class="detail-tags">
+            <span class="detail-tag rating" id="detail-rating">★ 9.2 / 10</span>
+            <span class="detail-tag" id="detail-genre">Action · Petualangan</span>
+            <span class="detail-tag" id="detail-duration">2 Jam 18 Menit</span>
+            <span class="detail-tag" id="detail-age">R13+</span>
+          </div>
+
+          <p class="detail-synopsis-preview" id="detail-synopsis-preview">
+            Misi penyelamatan berisiko tinggi di garis batas terakhir peradaban. Kapten Marcus bersama timnya harus melintasi wilayah tak terjamah untuk mengungkap konspirasi rahasia sebelum ancaman global pecah.
+          </p>
+
+          <div class="detail-actions">
+            <button class="buy-btn" type="button" id="btn-buy-ticket" style="display: none;">
+              🎟 &nbsp; Beli Tiket
+            </button>
+
+            <button class="remind-btn" type="button" id="btn-reminder" style="display: none;">
+              ♧ &nbsp; Ingatkan Saya
+            </button>
+
+            <a class="ghost" href="index.html#sedang-tayang">← Kembali ke Katalog</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="content-wrapper">
+      <div>
+        <section class="synopsis-card">
+          <h2 class="card-title">Sinopsis Lengkap</h2>
+          <p class="full-synopsis" id="detail-full-synopsis">
+          </p>
+        </section>
+
+        <section class="trailer-card">
+          <h2 class="card-title">Official Trailer</h2>
+          <div class="video-placeholder" onclick="notify('Memutar trailer film...')">
+            <img id="trailer-thumb" src="" alt="Trailer Thumbnail">
+            <div class="play-icon">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            </div>
+            <span style="position: relative; z-index: 2; font-size: 12px; font-weight: 800;">Putar Official Trailer</span>
+          </div>
+        </section>
+      </div>
+
+      <div>
+        <div class="info-sidebar">
+          <h3 class="card-title" style="font-size: 16px; margin-bottom: 20px;">Informasi Film</h3>
+          
+          <div class="info-group">
+            <div class="info-label">Tanggal Rilis</div>
+            <div class="info-value" id="info-release"></div>
+          </div>
+          <div class="info-group">
+            <div class="info-label">Sutradara</div>
+            <div class="info-value " id="info-director"></div>
+          </div>
+          <div class="info-group">
+            <div class="info-label">Pemeran Utama</div>
+            <div class="info-value" id="info-cast"></div>
+          </div>
+          <div class="info-group">
+            <div class="info-label">Bahasa / Subtitle</div>
+            <div class="info-value">Inggris (Subtitle Indonesia)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a class="brand footer-brand" href="index.html"><span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span></a>
+        <p class="footer-caption">Cari film. Pesan tiket. Nikmati ceritanya.</p>
+      </div>
+      <nav class="footer-links" aria-label="Navigasi footer">
+        <a href="index.html#promo">Promotions</a>
+        <a href="index.html#segera-tayang">Coming Soon</a>
+      </nav>
+    </div>
+  </footer>
+
+  <div class="backdrop" id="auth-modal" role="presentation">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+      <button class="close" type="button" aria-label="Tutup dialog"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m18 6-12 12M6 6l12 12"/></svg></button>
+      <a class="brand" href="index.html" aria-label="TIX ID"><span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span></a>
+      <h2 id="auth-title">Selamat datang!</h2>
+      <p class="subtitle">Masuk atau buat akun untuk pengalaman nonton yang lebih personal.</p>
+      <div class="tabs" role="tablist" aria-label="Login atau daftar">
+        <button class="tab" type="button" role="tab" id="tab-login" aria-selected="true">Login</button>
+        <button class="tab" type="button" role="tab" id="tab-register" aria-selected="false">Daftar</button>
+      </div>
+      <form class="auth-form" id="auth-form">
+        <label class="auth-field">Email atau nomor ponsel<input id="auth-contact" type="text" autocomplete="username" placeholder="nama@email.com" required></label>
+        <label class="auth-field" id="name-field" hidden>Nama lengkap<input id="auth-name" type="text" autocomplete="name" placeholder="Nama kamu"></label>
+        <label class="auth-field">Kata sandi<input id="auth-password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" minlength="6" required></label>
+        <button class="auth-submit" type="submit" id="auth-submit">Login</button>
+      </form>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+  <script>
+    const moviesData = {
+      'resident-evil': {
+        title: 'Resident Evil',
+        genre: 'Action · Horror · Sci-Fi',
+        rating: '★ 8.7 / 10',
+        duration: '1 Jam 40 Menit',
+        age: 'R17+',
+        release: '16 September 2026',
+        releaseDateISO: '2026-09-16',
+        director: 'Paul W. S. Anderson',
+        cast: 'Milla Jovovich, Michelle Rodriguez',
+        poster: '../img/Resident_Evil.webp',
+        synopsis: 'Medical courier Bryan unwittingly finds himself fighting for survival as one fateful, horrifying night collapses around him in chaos.'
+      },
+      'forgotten-island': {
+        title: 'Forgotten Island',
+        genre: 'Comedy · Keluarga',
+        rating: '★ 8.4 / 10',
+        duration: '1 Jam 35 Menit',
+        age: 'SU',
+        release: '26 September 2026',
+        releaseDateISO: '2026-09-26',
+        director: 'Pierre Coffin',
+        cast: 'Chris Pratt, Awkwafina, Jack Black',
+        poster: '../img/Forgotten_Island.webp',
+        synopsis: 'While celebrating their last night together, high school graduates and best friends Jo and Raissa stumble upon a mysterious portal that transports them to the fantastical island of Nakali.'
+      },
+      'fall-2-deadpoint': {
+        title: 'Fall 2: Deadpoint',
+        genre: 'Thriller · Petualangan',
+        rating: '★ 8.2 / 10',
+        duration: '1 Jam 48 Menit',
+        age: 'R13+',
+        release: '16 September 2026',
+        releaseDateISO: '2026-09-16',
+        director: 'Scott Mann',
+        cast: 'Grace Caroline Currey, Virginia Gardner',
+        poster: '../img/Fall_2.webp',
+        synopsis: "On a perilous climb across Thailand's Mount Kwan, two climbers become trapped thousands of feet above the ground."
+      },
+      'digger': {
+        title: 'Digger',
+        genre: 'Comedy · Drama',
+        rating: '★ 8.0 / 10',
+        duration: '2 Jam 9 Menit',
+        age: 'R13+',
+        release: '02 Oktober 2026',
+        releaseDateISO: '2026-10-02',
+        director: 'Georgios Grigorakis',
+        cast: 'Vangelis Mourikis, Argyris Pandazaras',
+        poster: '../img/Digger.webp',
+        synopsis: "The most powerful man in the world embarks on a frantic mission to prove he is humanity's savior before the disaster he's unleashed destroys everything."
+      },
+      'the-last-frontier': {
+        title: 'The Last Frontier',
+        genre: 'Action · Petualangan',
+        rating: '★ 9.2 / 10',
+        duration: '2 Jam 18 Menit',
+        age: 'R13+',
+        release: '12 Oktober 2026',
+        releaseDateISO: '2026-10-12',
+        director: 'Alexander Vance',
+        cast: 'Marcus Cole, Elena Rostova, David Kim',
+        poster: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=700&q=85',
+        synopsis: 'Misi penyelamatan berisiko tinggi di garis batas terakhir peradaban.'
+      },
+      'after-the-rain': {
+        title: 'After the Rain',
+        genre: 'Drama · Romance',
+        rating: '★ 8.8 / 10',
+        duration: '1 Jam 52 Menit',
+        age: 'SU',
+        release: '18 Oktober 2026',
+        releaseDateISO: '2026-10-18',
+        director: 'Sofia Coppola',
+        cast: 'Clara Oswald, Julian Vance',
+        poster: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=700&q=85',
+        synopsis: 'Kisah perjalanan emosional dua sahabat yang kembali bertemu setelah bertahun-tahun terpisah.'
+      },
+      'little-big-adventure': {
+        title: 'Little Big Adventure',
+        genre: 'Keluarga · Petualangan',
+        rating: '★ 9.0 / 10',
+        duration: '1 Jam 38 Menit',
+        age: 'SU',
+        release: '24 Oktober 2026',
+        releaseDateISO: '2026-10-24',
+        director: 'Pete Docter',
+        cast: 'Leo Howard, Maya Lin',
+        poster: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=700&q=85',
+        synopsis: 'Petualangan ajaib seorang anak dan kawan-kawan kecilnya menjelajahi hutan terlarang.'
+      },
+      'midnight-signal': {
+        title: 'Midnight Signal',
+        genre: 'Action · Thriller',
+        rating: '★ 8.5 / 10',
+        duration: '2 Jam 05 Menit',
+        age: 'R17+',
+        release: '31 Oktober 2026',
+        releaseDateISO: '2026-10-31',
+        director: 'Denis Villeneuve',
+        cast: 'Ethan Hawke, Zoe Saldana',
+        poster: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85',
+        synopsis: 'Sinyal misterius yang diterima stasiun radio tua pada tengah malam memicu serangkaian teror.'
+      }
+    };
+
+    function loadMovieDetail() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const movieKey = urlParams.get('film');
+
+      const movie = moviesData[movieKey];
+
+      if (movie) {
+        const today = new Date();
+        const releaseDate = new Date(movie.releaseDateISO);
+        const statusElement = document.getElementById('detail-status');
+
+        const btnBuy = document.getElementById('btn-buy-ticket');
+        const btnReminder = document.getElementById('btn-reminder');
+
+        const isNowShowing = today >= releaseDate;
+
+        if (isNowShowing) {
+          if (statusElement) {
+            statusElement.textContent = 'Sedang Tayang';
+            statusElement.style.color = '#4cd964';
+          }
+          if (btnBuy) btnBuy.style.display = 'inline-flex';
+          if (btnReminder) btnReminder.style.display = 'none';
+        } else {
+          if (statusElement) {
+            statusElement.textContent = 'Segera Tayang';
+            statusElement.style.color = 'var(--yellow)';
+          }
+          if (btnBuy) btnBuy.style.display = 'none';
+          if (btnReminder) btnReminder.style.display = 'inline-flex';
+        }
+
+        if (btnBuy) {
+          btnBuy.onclick = () => {
+            window.location.href = `../Pemesanan-Tiket/index.html?film=${encodeURIComponent(movieKey)}`;
+          };
+        }
+
+        if (btnReminder) {
+          btnReminder.setAttribute('data-reminder', movie.title);
+          btnReminder.onclick = () => {
+            const active = btnReminder.classList.toggle('is-set');
+            btnReminder.innerHTML = active ? '✓ Pengingat aktif' : '♧ &nbsp; Ingatkan Saya';
+            if (typeof notify === 'function') {
+              notify(active ? `Pengingat ${movie.title} diaktifkan.` : 'Pengingat dinonaktifkan.');
+            }
+          };
+        }
+
+        document.getElementById('detail-title').textContent = movie.title;
+        document.getElementById('detail-genre').textContent = movie.genre;
+        document.getElementById('detail-rating').textContent = movie.rating;
+        document.getElementById('detail-duration').textContent = movie.duration;
+        document.getElementById('detail-age').textContent = movie.age;
+        document.getElementById('detail-synopsis-preview').textContent = movie.synopsis;
+        document.getElementById('detail-full-synopsis').textContent = movie.synopsis;
+        
+        document.getElementById('info-release').textContent = movie.release;
+        document.getElementById('info-director').textContent = movie.director;
+        document.getElementById('info-cast').textContent = movie.cast;
+
+        const posterImg = document.getElementById('detail-poster-img');
+        if (posterImg) {
+          posterImg.src = movie.poster;
+          posterImg.alt = movie.title;
+        }
+
+        const trailerThumb = document.getElementById('trailer-thumb');
+        if (trailerThumb) {
+          trailerThumb.src = movie.poster;
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', loadMovieDetail);
+  </script>
+</body>
+</html>
