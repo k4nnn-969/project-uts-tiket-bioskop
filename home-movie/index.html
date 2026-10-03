@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10233f">
+  <title>TIX ID | Cari Film, Pesan Tiket</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="topline"></div>
+  
+  <header class="header">
+    <div class="nav">
+      <a class="brand" href="#beranda" aria-label="TIX ID Beranda">
+        <span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span>
+      </a>
+      <nav class="links" id="main-nav" aria-label="Navigasi utama">
+        <a href="#sedang-tayang">Now Showing</a>
+        <a href="#segera-tayang">Coming Soon</a>
+        <a href="#promo">Promotions</a>
+        <a href="#fitur">Layanan Unggulan</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="location" id="location-button" type="button" aria-label="Pilih kota">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span id="current-city">Jakarta</span>
+        </button>
+        <button class="login" type="button" data-open-auth>Login / Register</button>
+      </div>
+      <button class="menu" type="button" aria-label="Buka menu" aria-expanded="false" aria-controls="main-nav">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero" id="beranda">
+      <div class="hero-inner">
+        <span class="eyebrow">Cerita seru dimulai di sini</span>
+        <h1>Film bagus.<br><span>Kursi terbaik.</span></h1>
+        <p class="hero-copy">Temukan film favoritmu, cek jadwal bioskop, dan siapkan popcorn. Semua tiket ada dalam satu tempat.</p>
+        <div class="hero-actions">
+          <a class="primary" href="#segera-tayang">Jelajahi Film <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></a>
+          <a class="ghost" href="#promo">Lihat Promo</a>
+        </div>
+        <div class="hero-note"><span class="live-dot"></span> Pengalaman nonton lebih praktis, langsung dari genggaman.</div>
+      </div>
+    </section>
+    
+    <!-- SEARCH SECTION -->
+    <div class="search-shell" id="cari-film">
+      <form class="search-form" id="search-form">
+        <div class="field">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <div class="field-copy">
+            <label for="city-select">KOTA</label>
+            <select id="city-select" aria-label="Pilih kota">
+              <option>Jakarta</option><option>Bandung</option><option>Surabaya</option><option>Yogyakarta</option><option>Semarang</option><option>Medan</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>
+          <div class="field-copy">
+            <label for="movie-search">CARI FILM</label>
+            <input id="movie-search" type="search" placeholder="Judul film yang dicari" autocomplete="off">
+          </div>
+        </div>
+        <button class="search-submit" type="submit">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg> Cari Film
+        </button>
+      </form>
+    </div>
+
+    <!-- SECTION SEDANG TAYANG -->
+    <section class="section movie-section" id="sedang-tayang">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Pilih dan Nonton Sekarang</p>
+          <h2>Sedang Tayang</h2>
+        </div>  
+        <a href="movies.html?status=now-showing" class="btn-see-all">Lihat Semua →</a>
+      </div>
+
+      <div class="movie-grid">
+      <!-- FILM 1 -->
+      <div class="movie-card" data-genre="action" data-title="resident evil">
+        <a href="movie-detail.html?film=resident-evil" style="text-decoration: none; color: inherit;">
+          <div class="poster">
+            <img src="../img/Resident_Evil.webp" alt="Resident Evil" loading="lazy">
+          </div>
+          <div class="movie-info">
+            <p class="genre">Horror · Petualangan</p>
+            <h3>Resident Evil</h3>
+            <p class="date">Sedang tayang di bioskop</p>
+          </div>
+        </a>
+        <div style="padding: 0 13px 13px;">
+          <button class="buy" type="button" data-film="resident-evil">
+            🎟 &nbsp; Beli Tiket
+          </button>
+        </div>
+      </div>
+
+      <!-- FILM 2 -->
+      <div class="movie-card" data-genre="drama" data-title="forgotten island">
+        <a href="movie-detail.html?film=forgotten-island" style="text-decoration: none; color: inherit;">
+          <div class="poster">
+            <img src="../img/Forgotten_Island.webp" alt="Forgotten Island" loading="lazy">
+          </div>
+          <div class="movie-info">
+            <p class="genre">Comedy · Keluarga</p>
+            <h3>Forgotten Island</h3>
+            <p class="date">Sedang tayang di bioskop</p>
+          </div>
+        </a>
+        <div style="padding: 0 13px 13px;">
+          <button class="buy" type="button" data-film="forgotten-island">
+            🎟 &nbsp; Beli Tiket
+          </button>
+        </div>
+      </div>
+
+      <!-- FILM 3 -->
+      <div class="movie-card" data-genre="family" data-title="fall 2 deadpoint">
+        <a href="movie-detail.html?film=fall-2-deadpoint" style="text-decoration: none; color: inherit;">
+          <div class="poster">
+            <img src="../img/Fall_2.webp" alt="Fall 2: Deadpoint" loading="lazy">
+          </div>
+          <div class="movie-info">
+            <p class="genre">Thriller · Petualangan</p>
+            <h3>Fall 2: Deadpoint</h3>
+            <p class="date">Sedang tayang di bioskop</p>
+          </div>
+        </a>
+        <div style="padding: 0 13px 13px;">
+          <button class="buy" type="button" data-film="fall-2-deadpoint">
+            🎟 &nbsp; Beli Tiket
+          </button>
+        </div>
+      </div>
+
+      <!-- FILM 4 -->
+      <div class="movie-card" data-genre="action" data-title="digger">
+        <a href="movie-detail.html?film=digger" style="text-decoration: none; color: inherit;">
+          <div class="poster">
+            <img src="../img/Digger.webp" alt="Digger" loading="lazy">
+          </div>
+          <div class="movie-info">
+            <p class="genre">Comedy · Drama</p>
+            <h3>Digger</h3>
+            <p class="date">Sedang tayang di bioskop</p>
+          </div>
+        </a>
+        <div style="padding: 0 13px 13px;">
+          <button class="buy" type="button" data-film="digger">
+            🎟 &nbsp; Beli Tiket
+          </button>
+        </div>
+      </div>
+    </div>
+    </section>
+
+    <!-- KATALOG FILM SECTION -->
+    <section class="section movie-section" id="segera-tayang">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Catat tanggalnya</p>
+          <h2>Segera tayang</h2>
+        </div>
+        <a href="movies.html?status=coming-soon" class="btn-see-all">Lihat Semua →</a>
+      </div>
+
+      <div class="movie-grid" id="movie-grid">
+        <!-- FILM 1 -->
+        <article class="movie-card" data-genre="action" data-title="the last frontier">
+          <a href="movie-detail.html?film=the-last-frontier" style="text-decoration: none; color: inherit;">
+            <div class="poster">
+              <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=700&q=85" alt="The Last Frontier" loading="lazy">
+              <span class="release">Segera tayang</span>
+            </div>
+            <div class="movie-info">
+              <p class="genre">Action · Petualangan</p>
+              <h3>The Last Frontier</h3>
+              <p class="date">Mulai tayang 12 Oktober 2026</p>
+            </div>
+          </a>
+          <div style="padding: 0 13px 13px;">
+            <button class="remind" type="button" data-reminder="The Last Frontier">♧ &nbsp; Ingatkan saya</button>
+          </div>
+        </article>
+
+        <!-- FILM 2 -->
+        <article class="movie-card" data-genre="drama" data-title="after the rain">
+          <a href="movie-detail.html?film=after-the-rain" style="text-decoration: none; color: inherit;">
+            <div class="poster">
+              <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=700&q=85" alt="After the Rain" loading="lazy">
+              <span class="release">Segera tayang</span>
+            </div>
+            <div class="movie-info">
+              <p class="genre">Drama · Romance</p>
+              <h3>After the Rain</h3>
+              <p class="date">Mulai tayang 18 Oktober 2026</p>
+            </div>
+          </a>
+          <div style="padding: 0 13px 13px;">
+            <button class="remind" type="button" data-reminder="After the Rain">♧ &nbsp; Ingatkan saya</button>
+          </div>
+        </article>
+
+        <!-- FILM 3 -->
+        <article class="movie-card" data-genre="family" data-title="little big adventure">
+          <a href="movie-detail.html?film=little-big-adventure" style="text-decoration: none; color: inherit;">
+            <div class="poster">
+              <img src="https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=700&q=85" alt="Little Big Adventure" loading="lazy">
+              <span class="release">Segera tayang</span>
+            </div>
+            <div class="movie-info">
+              <p class="genre">Keluarga · Petualangan</p>
+              <h3>Little Big Adventure</h3>
+              <p class="date">Mulai tayang 24 Oktober 2026</p>
+            </div>
+          </a>
+          <div style="padding: 0 13px 13px;">
+            <button class="remind" type="button" data-reminder="Little Big Adventure">♧ &nbsp; Ingatkan saya</button>
+          </div>
+        </article>
+
+        <!-- FILM 4 -->
+        <article class="movie-card" data-genre="action" data-title="midnight signal">
+          <a href="movie-detail.html?film=midnight-signal" style="text-decoration: none; color: inherit;">
+            <div class="poster">
+              <img src="https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85" alt="Midnight Signal" loading="lazy">
+              <span class="release">Segera tayang</span>
+            </div>
+            <div class="movie-info">
+              <p class="genre">Action · Thriller</p>
+              <h3>Midnight Signal</h3>
+              <p class="date">Mulai tayang 31 Oktober 2026</p>
+            </div>
+          </a>
+          <div style="padding: 0 13px 13px;">
+            <button class="remind" type="button" data-reminder="Midnight Signal">♧ &nbsp; Ingatkan saya</button>
+          </div>
+        </article>
+
+        <p class="empty" id="empty-state">Film tidak ditemukan. Coba kata kunci lain.</p>
+      </div>
+    </section>
+
+    <!-- PROMO SECTION -->
+    <section class="section" id="promo">
+      <div class="section-heading">
+        <div>
+          <p class="kicker">Lebih hemat, lebih seru</p>
+          <h2>Promo pilihan minggu ini</h2>
+          <p class="description">Nonton film favorit dengan penawaran spesial dari TIX ID.</p>
+        </div>
+        <a class="text-link" href="#promo-list">Semua promo <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="promo-grid" id="promo-list">
+        <article class="promo-card" style="--image:url('https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=1000&q=80')">
+          <span class="promo-tag">Pilihan hari ini</span>
+          <div><h3>Waktunya movie date</h3><p>Hemat tiket untuk cerita yang ingin kamu bagi.</p><button class="promo-code" type="button" data-copy="MOVIEDATE">KODE: MOVIEDATE <span aria-hidden="true">⧉</span></button></div>
+        </article>
+        <article class="promo-card" style="--image:url('https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=800&q=80')">
+          <span class="promo-tag">Akhir pekan</span>
+          <div><h3>Weekend, layar lebar</h3><p>Mulai akhir pekanmu dengan film pilihan.</p><button class="promo-code" type="button" data-copy="WEEKEND">KODE: WEEKEND <span aria-hidden="true">⧉</span></button></div>
+        </article>
+        <article class="promo-card" style="--image:url('https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=800&q=80')">
+          <span class="promo-tag">Teman nonton</span>
+          <div><h3>Serunya rame-rame</h3><p>Ajak teman dan temukan film untuk semua.</p><button class="promo-code" type="button" data-copy="NONTONBARENG">KODE: NONTONBARENG <span aria-hidden="true">⧉</span></button></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SUPPORT SECTION -->
+    <section class="support" id="fitur">
+      <div class="support-inner">
+        <div class="support-heading"><div><p class="kicker">Kemudahan Nonton</p><h2>Semua kebutuhan nonton, lebih mudah.</h2></div><p>Mulai dari cari bioskop sampai tiket digital, pengalaman nontonmu jadi praktis dari awal sampai selesai.</p></div>
+        <div class="support-grid">
+          <article class="support-item"><span class="support-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4"/><path d="M8 9h2m-2 4h2m-2 4h2m5-2h2m-2 3h2"/></svg></span><div><h3>Cari bioskop</h3><p>Temukan lokasi dan jadwal di kotamu.</p></div></article>
+          <article class="support-item"><span class="support-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18m-13 4h3m-3 3h6"/></svg></span><div><h3>Pilih jadwal</h3><p>Atur waktu nonton sesuai rencanamu.</p></div></article>
+          <article class="support-item"><span class="support-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18m-14 5h4"/></svg></span><div><h3>Pembayaran praktis</h3><p>Pilihan pembayaran dalam satu alur.</p></div></article>
+          <article class="support-item"><span class="support-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8m-8 3h8m-8 3h5"/><path d="m7 2 2 3m8-3-2 3"/></svg></span><div><h3>Tiket digital</h3><p>Akses tiketmu dengan mudah di ponsel.</p></div></article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a class="brand footer-brand" href="#beranda"><span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span></a>
+        <p class="footer-caption">Cari film. Pesan tiket. Nikmati ceritanya.</p>
+      </div>
+      <nav class="footer-links" aria-label="Navigasi footer">
+        <a href="#promo">Promotions</a><a href="#segera-tayang">Coming Soon</a><a href="#fitur">Bantuan</a><a href="#beranda">Kembali ke atas ↑</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- MODAL AUTH LOGIN / REGISTER -->
+  <div class="backdrop" id="auth-modal" role="presentation">
+    <section class="modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+      <button class="close" type="button" aria-label="Tutup dialog"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m18 6-12 12M6 6l12 12"/></svg></button>
+      <a class="brand" href="#beranda" aria-label="TIX ID"><span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span></a>
+      <h2 id="auth-title">Selamat datang!</h2>
+      <p class="subtitle">Masuk atau buat akun untuk pengalaman nonton yang lebih personal.</p>
+      <div class="tabs" role="tablist" aria-label="Login atau daftar">
+        <button class="tab" type="button" role="tab" id="tab-login" aria-selected="true">Login</button>
+        <button class="tab" type="button" role="tab" id="tab-register" aria-selected="false">Daftar</button>
+      </div>
+      <form class="auth-form" id="auth-form">
+        <label class="auth-field">Email atau nomor ponsel<input id="auth-contact" type="text" autocomplete="username" placeholder="nama@email.com" required></label>
+        <label class="auth-field" id="name-field" hidden>Nama lengkap<input id="auth-name" type="text" autocomplete="name" placeholder="Nama kamu"></label>
+        <label class="auth-field">Kata sandi<input id="auth-password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" minlength="6" required></label>
+        <button class="auth-submit" type="submit" id="auth-submit">Login</button>
+      </form>
+      <p class="legal">Dengan melanjutkan, kamu menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi TIX ID.</p>
+    </section>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

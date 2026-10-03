@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10233f">
+  <title>TIX ID | All Movies</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background-color: #f8fafc;
+      color: #0f172a;
+      margin: 0;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .movies-container {
+      width: min(1160px, calc(100% - 48px));
+      margin: 30px auto 80px;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 24px;
+    }
+
+    .back-btn {
+      text-decoration: none;
+      color: #0f172a;
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: white;
+      transition: all 0.2s;
+    }
+
+    .back-btn:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .page-title {
+      font: 800 28px/1 Manrope, sans-serif;
+      margin: 0;
+      color: #0f172a;
+    }
+
+    .tabs-wrapper {
+      display: flex;
+      border-bottom: 2px solid #e2e8f0;
+      margin-bottom: 36px;
+      gap: 32px;
+    }
+
+    .tab-btn {
+      padding: 16px 8px;
+      background: none;
+      border: none;
+      font: 800 16px/1 Manrope, sans-serif;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+
+    .tab-btn:hover {
+      color: #0f172a;
+    }
+
+    .tab-btn.active {
+      color: #3b82f6;
+    }
+
+    .tab-btn.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background-color: #3b82f6;
+    }
+
+    /* GRID MOVIES DESKTOP */
+    .movies-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr); /* 4 Kolom di Tampilan Desktop */
+      gap: 32px 24px;
+    }
+
+    @media (min-width: 1024px) {
+      .movies-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .movies-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .movie-card {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      background: white;
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid #e2e8f0;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .movie-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+    }
+
+    .movie-poster-wrap {
+      width: 100%;
+      aspect-ratio: 2/3;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #e2e8f0;
+      margin-bottom: 12px;
+    }
+
+    .movie-poster-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .movie-card-title {
+      font: 800 16px/1.3 Manrope, sans-serif;
+      color: #0f172a;
+      text-transform: uppercase;
+      margin: 0 0 6px 0;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .movie-card-date {
+      font-size: 12px;
+      color: #64748b;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="nav">
+      <a class="brand" href="index.html" aria-label="TIX ID Beranda">
+        <span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span>
+      </a>
+      <nav class="links" id="main-nav">
+        <a href="index.html#promo">Promotions</a>
+        <a href="movies.html?status=coming-soon">Coming Soon</a>
+        <a href="index.html#fitur">Fitur Pendukung</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="movies-container">
+    <div class="page-header">
+      <a href="index.html" class="back-btn">&lsaquo;</a>
+      <h1 class="page-title">All Movies</h1>
+    </div>
+
+    <div class="tabs-wrapper">
+      <button class="tab-btn active" id="tab-now" onclick="switchTab('now-showing')">NOW SHOWING</button>
+      <button class="tab-btn" id="tab-coming" onclick="switchTab('coming-soon')">COMING SOON</button>
+    </div>
+    <div class="movies-grid" id="movies-grid"></div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <a class="brand footer-brand" href="index.html"><span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span></a>
+        <p class="footer-caption">Cari film. Pesan tiket. Nikmati ceritanya.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const moviesData = {
+      'resident-evil': {
+        title: 'Resident Evil',
+        release: '16 September 2026',
+        releaseDateISO: '2026-09-16',
+        poster: '../img/Resident_Evil.webp'
+      },
+      'digger': {
+        title: 'Digger',
+        release: '02 Oktober 2026',
+        releaseDateISO: '2026-10-02',
+        poster: '../img/Digger.webp'
+      },
+      'the-last-frontier': {
+        title: 'The Last Frontier',
+        release: '12 Oktober 2026',
+        releaseDateISO: '2026-10-12',
+        poster: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=700&q=85'
+      },
+      'after-the-rain': {
+        title: 'After the Rain',
+        release: '18 Oktober 2026',
+        releaseDateISO: '2026-10-18',
+        poster: 'https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=700&q=85'
+      },
+      'forgotten-island': {
+        title: 'Forgotten Island',
+        release: '26 September 2026',
+        releaseDateISO: '2026-09-26',
+        poster: '../img/Forgotten_Island.webp'
+      },
+      'fall-2-deadpoint': {
+        title: 'Fall 2: Deadpoint',
+        release: '16 September 2026',
+        releaseDateISO: '2026-09-16',
+        poster: '../img/Fall_2.webp'
+      },
+      'little-big-adventure': {
+        title: 'Little Big Adventure',
+        release: '24 November 2026',
+        releaseDateISO: '2026-11-24',
+        poster: 'https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=700&q=85'
+      },
+      'midnight-signal': {
+        title: 'Midnight Signal',
+        release: '31 Desember 2026',
+        releaseDateISO: '2026-12-31',
+        poster: 'https://images.unsplash.com/photo-1519608487953-e999c86e7455?auto=format&fit=crop&w=700&q=85'
+      }
+    };
+
+    let currentTab = 'now-showing';
+
+    function renderMovies() {
+      const grid = document.getElementById('movies-grid');
+      grid.innerHTML = '';
+
+      const today = new Date('2026-10-03');
+
+      let count = 0;
+
+      Object.keys(moviesData).forEach(key => {
+        const movie = moviesData[key];
+        const releaseDate = new Date(movie.releaseDateISO);
+        
+        const isNowShowing = today >= releaseDate;
+
+        if ((currentTab === 'now-showing' && isNowShowing) || (currentTab === 'coming-soon' && !isNowShowing)) {
+          count++;
+          const cardHtml = `
+            <a href="movie-detail.html?film=${key}" class="movie-card">
+              <div class="movie-poster-wrap">
+                <img src="${movie.poster}" alt="${movie.title}" onerror="this.src='https://via.placeholder.com/300x450?text=Poster+Tidak+Ada'">
+              </div>
+              <h3 class="movie-card-title">${movie.title}</h3>
+              <span class="movie-card-date">Rilis: ${movie.release}</span>
+            </a>
+          `;
+          grid.innerHTML += cardHtml;
+        }
+      });
+
+      if (count === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #64748b;">Tidak ada film untuk kategori ini.</div>`;
+      }
+    }
+
+    function switchTab(status) {
+      currentTab = status;
+      document.getElementById('tab-now').classList.toggle('active', status === 'now-showing');
+      document.getElementById('tab-coming').classList.toggle('active', status === 'coming-soon');
+      renderMovies();
+    }
+
+    // Inisialisasi saat pertama dibuka berdasarkan URL Parameter
+    document.addEventListener('DOMContentLoaded', () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const statusParam = urlParams.get('status');
+
+      if (statusParam === 'coming-soon') {
+        switchTab('coming-soon');
+      } else {
+        switchTab('now-showing');
+      }
+    });
+  </script>
+</body>
+</html>
