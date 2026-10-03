@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="id">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TIX ID | Profile</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"></head>
+<body data-page="profile">
+<div class="topline"></div><header class="header"><div class="nav">
+<a class="brand" href="../fitur-pendukung/index.html"><span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span></a>
+<nav class="links"><a href="../fitur-pendukung/index.html">Beranda</a><a href="history.html">History</a><a href="eticket.html">E-Ticket</a></nav>
+<div class="nav-actions"><a class="nav-btn" href="history.html">History</a><a class="nav-btn" href="eticket.html">E-Ticket</a><button class="nav-btn primary" id="logout-btn">Logout</button></div>
+</div></header>
+<main class="section"><div class="page-head"><p class="kicker">Akun saya</p><h1>Profile</h1><p>Kelola informasi akun yang digunakan saat pemesanan tiket.</p></div>
+<div class="card profile-card">
+<div class="avatar" id="avatar">U</div><div class="profile-info"><h2 id="profile-name">-</h2><p id="profile-email">-</p><p id="profile-city">Kota: -</p>
+<div class="actions"><button class="btn primary" id="edit-btn">Edit Profile</button><a class="btn" href="../Bioskop-Jadwal/cinemas.html">Pesan Tiket</a></div></div>
+</div>
+<div class="card" id="edit-card" style="padding:25px;margin-top:18px;display:none"><h3 style="margin-top:0">Edit Profile</h3>
+<form id="profile-form" class="form-grid"><div class="field"><label>Nama Lengkap</label><input id="edit-name" required></div><div class="field"><label>Kota</label><select id="edit-city"><option>Jakarta</option><option>Bandung</option><option>Surabaya</option><option>Yogyakarta</option><option>Semarang</option><option>Medan</option></select></div><div class="actions"><button class="btn primary">Simpan</button><button class="btn" type="button" id="cancel-edit">Batal</button></div></form></div>
+</main><footer class="footer"><div class="footer-inner"><div><strong>TIX ID</strong><div class="footer-caption">Cari film. Pesan tiket. Nikmati ceritanya.</div></div></div></footer>
+<script src="script.js"></script></body></html>
