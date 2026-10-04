@@ -37,8 +37,7 @@ $(document).ready(function() {
             formats: [{ type: "REGULAR 2D", price: 50000, times: [{t:"13:00", s:"Tersedia"}, {t:"15:30", s:"Cepat!"}, {t:"20:00", s:"Tersedia"}] }, { type: "THE PREMIERE", price: 100000, times: [{t:"14:15", s:"Tersedia"}, {t:"18:45", s:"Cepat!"}] }] 
         },
         { 
-            id: "M02", title: "Forgotten Island", genre: "Adventure, Comedy", rate: "⭐ 8.4", age: "SU", 
-            poster: "https://picsum.photos/seed/island/300/450", 
+            id: "M02", title: "Forgotten Island", genre: "Adventure, Comedy", rate: "⭐ 8.4", age: "SU",             poster: "https://picsum.photos/seed/island/300/450", 
             fallbackImg: getFallback("Forgotten Island"), 
             formats: [{ type: "REGULAR 2D", price: 40000, times: [{t:"10:00", s:"Tersedia"}, {t:"12:15", s:"Tersedia"}, {t:"14:30", s:"Cepat!"}, {t:"FULL", s:"Habis"}] }] 
         },
