@@ -1,123 +1,217 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>TIX ID | Jadwal Bioskop</title>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1769e0">
+  <meta name="description" content="TIX ID Clone - Platform Pemesanan Tiket Bioskop Profesional dengan Fitur Canggih">
+  <meta name="author" content="Tim Developer Kelas A">
+  <title>TIX ID — Jadwal Tayang & Bioskop Premium</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="../fitur-login/auth.css">
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" defer></script>
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <div class="topline"></div>
-  <header class="header">
+
+  <div class="topline" aria-hidden="true"></div>
+  <header class="header" role="banner">
     <div class="nav">
-      <a class="brand" href="../fitur-pendukung/index.html"><span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span></a>
-      <nav class="links">
-        <a href="../fitur-pendukung/index.html#promo">Promotions</a>
-        <a href="../fitur-pendukung/index.html#segera-tayang">Coming Soon</a>
+      <a class="brand" href="../home-movie/index.html" aria-label="Beranda TIX ID">
+        <span class="brand-tix">TIX</span>
+        <span class="brand-id">ID</span>
+        <span class="brand-dot" aria-hidden="true"></span>
+      </a>
+
+      <nav class="links" aria-label="Navigasi Utama">
+        <a href="../home-movie/index.html">Beranda</a>
+        <a href="../home-movie/movies.html?status=now-playing">Sedang Tayang</a>
+        <a href="../home-movie/movies.html?status=coming-soon">Segera Tayang</a>
+        <a href="cinemas.html" class="active-link" aria-current="page">Bioskop</a>
       </nav>
+  
       <div class="nav-actions">
-        <button class="location"><span id="current-city">Jakarta</span></button>
+        <button class="icon-btn theme-toggle" id="themeToggle" aria-label="Ubah Tema Visual">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+        <button class="location-badge" id="globalLocationBtn" aria-label="Pilih Lokasi">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span id="currentCityLabel">Jakarta</span>
+        </button>
+        <a class="nav-btn primary" href="../page/auth.html">Akun Saya</a>
       </div>
     </div>
   </header>
 
-  <main class="section cinema-section">
-    <div class="section-heading">
-      <div>
-        <p class="kicker">Pilih Lokasi</p>
-        <h2>Daftar Bioskop & Jadwal</h2>
-      </div>
-      <div class="date-tabs">
-        <button class="filter active-tab" type="button">Hari Ini</button>
-        <button class="filter" type="button">Besok</button>
-      </div>
-    </div>
+  <main class="page-container" role="main">
+    <div class="layout-grid">
+      
+      <aside class="sidebar" aria-label="Panel Pencarian Bioskop">
+        <div class="sidebar-head">
+          <div class="sidebar-kicker-group">
+            <p class="kicker">JELAJAHI LOKASI</p>
+            <span class="cinema-count-badge" id="cinemaCountBadge">Memuat...</span>
+          </div>
+          <h2 class="sidebar-title">Pilih Bioskop</h2>
+          
+          <div class="search-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            <input type="text" id="searchInput" placeholder="Cari nama bioskop atau mall..." aria-label="Cari bioskop" autocomplete="off">
+            <button class="clear-search-btn" id="clearSearchBtn" aria-label="Hapus pencarian" style="display:none;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+          </div>
 
-    <div class="cinema-layout">
-      <aside class="cinema-list">
-        <div class="cinema-card active-card" data-cinema="Senayan City XXI">
-          <h3>Senayan City XXI</h3>
-          <p>Jakarta Pusat</p>
-        </div>
-        <div class="cinema-card" data-cinema="Kelapa Gading IMAX">
-          <h3>Kelapa Gading IMAX</h3>
-          <p>Jakarta Utara</p>
-        </div>
-        <div class="cinema-card" data-cinema="Pondok Indah 1 XXI">
-          <h3>Pondok Indah 1 XXI</h3>
-          <p>Jakarta Selatan</p>
-        </div>
-      </aside>
-
-      <section class="showtimes-panel">
-        <div class="panel-heading">
-          <h2 id="selectedCinemaTitle">Senayan City XXI</h2>
-          <div class="cinema-info-detail">
-             <p id="cinemaAddress" class="cinema-address">Jl. Asia Afrika Lot 19, Senayan, Jakarta Pusat</p>
-             <div id="cinemaFacilities" class="facility-tags">
-                 <span class="f-tag">IMAX</span>
-                 <span class="f-tag">The Premiere</span>
-                 <span class="f-tag">Dolby Atmos</span>
-                 <span class="f-tag">Cafe</span>
-             </div>
+          <div class="region-tabs" id="regionTabs" role="tablist" aria-label="Filter Wilayah"></div>
+          
+          <div class="facility-filters" id="facilityFilters">
+            <button class="f-filter-btn" data-filter="all">Semua</button>
+            <button class="f-filter-btn" data-filter="IMAX">IMAX</button>
+            <button class="f-filter-btn" data-filter="The Premiere">Premiere</button>
+            <button class="f-filter-btn" data-filter="CGV">CGV</button>
           </div>
         </div>
-        <div class="panel-content">
-          <article class="movie-showtime">
-            <div class="poster-small">
-              <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=85" alt="The Last Frontier">
-            </div>
-            <div class="movie-details">
-              <p class="genre">Action · Petualangan</p>
-              <h3>The Last Frontier</h3>
-              <div class="tags">
-                <span class="promo-tag">⭐ 8.5</span>
-              </div>
-              <p class="ticket-type">2D Regular - Rp 50.000</p>
-              <div class="time-slots">
-                <a class="time-btn" href="../Pemesanan-Tiket/index.html?film=last-frontier&amp;jam=12%3A30">12:30</a>
-                <a class="time-btn" href="../Pemesanan-Tiket/index.html?film=last-frontier&amp;jam=14%3A45">14:45</a>
-                <a class="time-btn" href="../Pemesanan-Tiket/index.html?film=last-frontier&amp;jam=17%3A00">17:00</a>
-                <button class="time-btn full" disabled>19:15 (Penuh)</button>
-              </div>
-            </div>
-          </article>
+
+        <div class="fav-banner">
+          <div class="fav-icon" aria-hidden="true">★</div>
+          <div class="fav-text">
+            <strong>Tandai bioskop favoritmu!</strong>
+            <span>Bioskop favorit diprioritaskan di posisi teratas.</span>
+          </div>
+        </div>
+
+        <div class="cinema-list" id="cinemaList" role="listbox"></div>
+      </aside>
+
+      <section class="dashboard" aria-label="Detail Bioskop & Jadwal">
+        
+        <div class="dash-hero" id="dashHero">
+          <img src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80" alt="Cinema Cover" class="hero-bg" id="heroImage">
+          <div class="hero-overlay" aria-hidden="true"></div>
           
-          <article class="movie-showtime">
-            <div class="poster-small">
-              <img src="https://images.unsplash.com/photo-1518837695005-2083093ee35b?auto=format&fit=crop&w=300&q=85" alt="After the Rain">
+          <div class="hero-content">
+            <span class="hero-status-pill">Active Venue</span>
+            <h1 id="dashTitle" class="skeleton-text">Memuat Data...</h1>
+            <p id="dashAddress" class="skeleton-text skeleton-sub">Mohon tunggu sebentar</p>
+            <div id="dashTags" class="tags-container"></div>
+          </div>
+          
+          <div class="hero-actions">
+            <button class="btn-hero btn-share" id="btnShare" aria-label="Bagikan Jadwal">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+              <span>Bagikan</span>
+            </button>
+            <button class="btn-hero btn-fav-hero" id="btnToggleFav" aria-label="Toggle Favorit">
+               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+               <span id="favBtnText">Favorit</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="dash-body">
+          <div class="date-slider-container">
+            <div class="date-slider" id="dateSlider" role="tablist" aria-label="Pilih Tanggal"></div>
+          </div>
+          
+          <div class="promo-banner" id="promoBanner" style="display:none;">
+            <div class="promo-icon">💳</div>
+            <div class="promo-text">
+              <strong>Spesial Harga Weekend!</strong>
+              <span>Terdapat penyesuaian harga khusus akhir pekan. Gunakan QRIS untuk Cashback s.d 30%.</span>
             </div>
-            <div class="movie-details">
-              <p class="genre">Drama · Romance</p>
-              <h3>After the Rain</h3>
-              <div class="tags">
-                <span class="promo-tag">⭐ 9.0</span>
-              </div>
-              <p class="ticket-type">2D Regular - Rp 45.000</p>
-              <div class="time-slots">
-                <a class="time-btn" href="../Pemesanan-Tiket/index.html?film=after-the-rain&amp;jam=13%3A00">13:00</a>
-                <a class="time-btn" href="../Pemesanan-Tiket/index.html?film=after-the-rain&amp;jam=15%3A15">15:15</a>
-              </div>
-            </div>
-          </article>
+            <button class="promo-close" aria-label="Tutup Promo">&times;</button>
+          </div>
+
+          <div id="loadingState" class="loading-container" style="display:none;">
+            <div class="spinner"></div>
+            <p>Menyelaraskan jadwal tayang dari server...</p>
+          </div>
+
+          <div id="emptyState" class="empty-state" style="display:none;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <h3>Jadwal Belum Tersedia</h3>
+            <p>Jadwal tayang untuk tanggal ini sedang dalam penyusunan oleh pihak bioskop. Silakan periksa kembali nanti.</p>
+          </div>
+
+          <div class="movie-list" id="movieList" role="region" aria-live="polite"></div>
         </div>
       </section>
+      
     </div>
   </main>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <div>
-        <a class="brand footer-brand" href="#"><span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span></a>
-        <p class="footer-caption">Cari film. Pesan tiket. Nikmati ceritanya.</p>
+  <div id="toastNotification" class="toast-notification" role="alert" aria-live="assertive">
+    <div class="toast-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+    <div class="toast-content">
+      <strong>Sistem TIX ID</strong>
+      <span id="toastMessage">Tindakan berhasil dikonfirmasi.</span>
+    </div>
+  </div>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-top">
+      <div class="footer-col brand-col">
+        <a class="brand footer-brand" href="../home-movie/index.html">
+          <span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span>
+        </a>
+        <p class="footer-desc">Platform pemesanan tiket bioskop terdepan. Temukan film favoritmu dan pesan kursi terbaik dengan mudah, cepat, dan aman untuk pengalaman sinematik tak terlupakan.</p>
       </div>
+      
+      <div class="footer-col">
+        <h4>Perusahaan</h4>
+        <a href="#">Tentang TIX ID</a>
+        <a href="#">Karir</a>
+        <a href="#">Blog & Berita</a>
+        <a href="#">TIX ID Rewards</a>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Bantuan</h4>
+        <a href="#">Pusat Bantuan</a>
+        <a href="#">Syarat & Ketentuan</a>
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Hubungi Kami</a>
+      </div>
+      
+      <div class="footer-col">
+        <h4>Ikuti Kami</h4>
+        <div class="social-links">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          </a>
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+          </a>
+        </div>
+        
+        <h4 style="margin-top: 24px;">Unduh Aplikasi</h4>
+        <div class="store-links">
+          <button class="store-badge">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.19 2.31-.88 3.5-.84 1.5.05 2.78.69 3.52 1.84-3.02 1.76-2.52 5.56.36 6.75-.68 1.76-1.55 3.42-2.46 4.42zm-3.65-15.1c-.2-1.92 1.4-3.66 3.19-3.92.29 2.05-1.57 3.73-3.19 3.92z"/></svg>
+            App Store
+          </button>
+          <button class="store-badge">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M3 20.5v-17c0-.83.67-1.5 1.5-1.5h15c.83 0 1.5.67 1.5 1.5v17c0 .83-.67 1.5-1.5 1.5h-15c-.83 0-1.5-.67-1.5-1.5zM20 5H4v14h16V5zm-8.8 11.2l-3.2-3.2 1.4-1.4 1.8 1.8 4.2-4.2 1.4 1.4-5.6 5.6z"/></svg>
+            Play Store
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>© 2026 TIX ID Clone Project. Hak Cipta Dilindungi Undang-Undang. Modul Bioskop & Jadwal.</p>
     </div>
   </footer>
 
-  <script src="script.js"></script>
-  <script src="../fitur-pendukung/auth.js"></script>
 </body>
 </html>
