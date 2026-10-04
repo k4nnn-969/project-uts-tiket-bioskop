@@ -8,25 +8,26 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=main-fix-1">
   <link rel="stylesheet" href="../fitur-login/auth.css">
 </head>
 <body>
   <div class="topline"></div>
   <header class="header">
     <div class="nav">
-      <a class="brand" href="../fitur-pendukung/index.html" aria-label="TIX ID Beranda"><span class="brand-tix">TIX</span><span class="brand-bolt" aria-hidden="true"></span><span class="brand-id">ID</span></a>
+      <a class="brand" href="../home-movie/index.html" aria-label="TIX ID Beranda"><span class="brand-tix">TIX</span><span class="brand-bolt" aria-hidden="true"></span><span class="brand-id">ID</span></a>
       <nav class="links" aria-label="Navigasi utama">
-        <a href="../fitur-pendukung/index.html#segera-tayang">Film</a>
+        <a href="../home-movie/movies.html">Movies</a>
         <a href="../Bioskop-Jadwal/cinemas.html">Jadwal bioskop</a>
+        <a href="../profile-eticket-history/page/history.html">Booking History</a>
       </nav>
-      <a class="help-link" href="../fitur-pendukung/index.html">Bantuan</a>
+      <a class="help-link" href="../home-movie/index.html#fitur">Bantuan</a>
     </div>
   </header>
 
   <main class="booking-page">
     <div class="page-heading">
-      <a class="back-link" href="../Bioskop-Jadwal/cinemas.html" aria-label="Kembali ke jadwal"><span aria-hidden="true">←</span> Kembali ke jadwal</a>
+          <a class="back-link" href="../Bioskop-Jadwal/cinemas.html" aria-label="Kembali ke jadwal"><span aria-hidden="true">←</span> Kembali ke jadwal</a>
       <p class="eyebrow">PESAN TIKET BIOSKOP</p>
       <h1>Satu langkah lagi<br><span>menuju cerita seru.</span></h1>
     </div>
@@ -126,8 +127,8 @@
         <div class="order-seat-row"><span>Kursi</span><strong id="order-seats">Pilih kursi</strong></div>
         <div class="price-breakdown"><div><span>Tiket <b id="ticket-quantity">0</b> × <b id="ticket-unit-price">Rp50.000</b></span><strong id="ticket-subtotal">Rp0</strong></div><div><span>Biaya layanan</span><strong id="service-fee">Rp0</strong></div><div class="discount-row" id="discount-row" hidden><span>Promo</span><strong id="discount-amount">−Rp0</strong></div></div>
         <div class="total-row"><span>Total pembayaran</span><strong id="order-total">Rp0</strong></div>
-        <div class="mobile-order-summary"><strong id="mobile-total">Rp0</strong><span id="mobile-seat-summary">Kursi: -</span></div>
-        <button class="button-primary order-continue" type="button" id="continue-button" disabled><span id="continue-label">Pilih kursi dulu</span><span class="mobile-continue-label">RINGKASAN</span><span aria-hidden="true">→</span></button>
+        <div class="mobile-order-summary"><div class="mobile-price"><span>TOTAL HARGA</span><strong id="mobile-total">Rp0</strong></div><div class="mobile-seats"><span>TEMPAT DUDUK</span><div id="mobile-seat-summary"><span class="selected-seat-chip is-placeholder">-</span></div></div></div>
+        <button class="button-primary order-continue" type="button" id="continue-button" disabled><span id="continue-label">Pilih kursi dulu</span><span class="mobile-continue-label">RINGKASAN ORDER (0)</span><span aria-hidden="true">→</span></button>
         <p class="order-foot"><span aria-hidden="true">◈</span> Tiket hanya berlaku untuk jadwal yang dipilih.</p>
         <div class="order-divider"></div>
         <div class="support-note"><span class="support-badge" aria-hidden="true">?</span><div><strong>Butuh bantuan?</strong><a href="mailto:bantuan@tix.id">Hubungi customer care</a></div></div>
@@ -135,9 +136,9 @@
     </div>
   </main>
 
-  <footer class="footer"><a class="brand" href="../fitur-pendukung/index.html" aria-label="TIX ID"><span class="brand-tix">TIX</span><span class="brand-bolt" aria-hidden="true"></span><span class="brand-id">ID</span></a><p>© 2026 TIX ID · Cari film. Pesan tiket. Nikmati ceritanya.</p></footer>
+  <footer class="footer"><a class="brand" href="../home-movie/index.html" aria-label="TIX ID"><span class="brand-tix">TIX</span><span class="brand-bolt" aria-hidden="true"></span><span class="brand-id">ID</span></a><p>© 2026 TIX ID · Cari film. Pesan tiket. Nikmati ceritanya.</p></footer>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script src="script.js"></script>
+  <script src="script.js?v=poster-map-1"></script>
   <script src="../fitur-pendukung/auth.js"></script>
 </body>
 </html>

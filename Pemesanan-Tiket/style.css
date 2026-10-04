@@ -275,3 +275,36 @@ body { display: block; align-items: initial; padding-bottom: 0; background: var(
     .payment-category { padding-top: 13px; }
     .payment-category .payment-option { padding-right: 5px; padding-left: 5px; }
 }
+
+.seat-map { width: min(560px,100%); grid-template-columns: repeat(6,minmax(24px,1fr)) 28px repeat(6,minmax(24px,1fr)); gap: 8px 5px; }
+.seat-aisle { min-width: 0; }
+.seat { width: 100%; max-width: none; aspect-ratio: 1.05; border-radius: 5px; }
+.seat.is-occupied,.seat.is-occupied:hover { border-color: #e1e5e9; background: #e9ecef; color: #a6adb7; cursor: not-allowed; transform: none; }
+.seat.is-selected,.seat.is-selected:hover { border-color: #168bd2; background: #168bd2; color: white; }
+.seat-swatch.selected { border-color: #168bd2; background: #168bd2; }
+.seat-swatch.occupied { border-color: #e1e5e9; background: #e9ecef; }
+
+@media(max-width:620px) {
+    body.is-seat-stage .seat-legend { justify-content: space-around; gap: 6px; padding: 0 20px; }
+    body.is-seat-stage .seat-map { width: min(560px,calc(100% - 28px)); grid-template-columns: repeat(6,minmax(0,1fr)) minmax(18px,.6fr) repeat(6,minmax(0,1fr)); justify-content: center; gap: 7px 4px; margin: 32px auto 0; padding: 0 0 8px; overflow: visible; }
+    body.is-seat-stage .seat { width: 100%; height: auto; max-width: none; aspect-ratio: 1.05; border-radius: 5px; font-size: clamp(7px,2.2vw,10px); }
+    body.is-seat-stage .screen-area { margin: 30px 18px 0; }
+    body.is-seat-stage .screen-shape { height: 27px; }
+    body.is-seat-stage .order-panel { grid-template-columns: minmax(0,1fr); gap: 0; padding: 0 0 env(safe-area-inset-bottom); }
+    body.is-seat-stage .mobile-order-summary { grid-column: 1/-1; grid-template-columns: 1fr 1fr; gap: 0; padding: 9px 0; }
+    .mobile-price,.mobile-seats { min-width: 0; display: grid; align-content: center; gap: 7px; padding: 0 18px; }
+    .mobile-price { border-right: 1px solid var(--line); }
+    .mobile-price>span,.mobile-seats>span { color: #7b8797; font-size: 10px; text-align: center; }
+    .mobile-price strong { color: var(--blue); font-size: 23px; text-align: center; }
+    #mobile-seat-summary { min-height: 36px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 6px; }
+    .selected-seat-chip { min-width: 34px; display: inline-grid; place-items: center; padding: 7px 5px; border-radius: 4px; background: #168bd2; color: white; font-size: 12px; font-weight: 800; }
+    .selected-seat-chip.is-placeholder { background: #edf0f3; color: #7b8797; }
+    body.is-seat-stage #continue-button { width: 100%; min-height: 55px; border-radius: 0; font-size: 15px; }
+    body.is-seat-stage .mobile-continue-label { font-size: 15px; }
+}
+
+@media(max-width:360px) {
+    body.is-seat-stage .seat-map { width: calc(100% - 20px); gap: 6px 3px; }
+    .mobile-price,.mobile-seats { padding: 0 10px; }
+    .mobile-price strong { font-size: 20px; }
+}

@@ -1,7 +1,8 @@
 $(document).ready(function() {
     'use strict';
 
-    const SYSTEM_DATE = new Date('2026-10-04');
+    const SYSTEM_DATE = new Date();
+    SYSTEM_DATE.setHours(0, 0, 0, 0);
     
     function initTheme() {
         const savedTheme = localStorage.getItem('tix_theme') || 'light';
@@ -72,6 +73,15 @@ $(document).ready(function() {
             formats: [{ type: "REGULAR 2D", price: 45000, times: [{t:"13:15", s:"Tersedia"}, {t:"15:45", s:"Tersedia"}, {t:"18:15", s:"Cepat!"}, {t:"20:45", s:"Tersedia"}] }] 
         }
     ];
+    const BOOKING_FILM_KEYS = {
+        "Resident Evil": "resident-evil",
+        "Forgotten Island": "forgotten-island",
+        "Fall 2: Deadpoint": "fall-2-deadpoint",
+        "Digger": "digger",
+        "Memburu Pemangsa": "memburu-pemangsa",
+        "Avengers Endgame: Encore": "avengers-endgame-encore",
+        "The Last Frontier": "last-frontier"
+    };
 
     const REGIONS = ["JAKARTA", "BOGOR", "DEPOK", "TANGERANG", "BANDUNG"];
     let state = { region: "JAKARTA", cinema: null, dateIndex: 0, facilityFilter: 'all' };
@@ -236,6 +246,7 @@ $(document).ready(function() {
             const c = DB_CINEMAS[state.cinema];
             let selectedDateObj = new Date(SYSTEM_DATE);
             selectedDateObj.setDate(SYSTEM_DATE.getDate() + state.dateIndex);
+            const dateValue = [selectedDateObj.getFullYear(), String(selectedDateObj.getMonth() + 1).padStart(2, '0'), String(selectedDateObj.getDate()).padStart(2, '0')].join('-');
             let dayIdx = selectedDateObj.getDay();
             let isWeekend = (dayIdx === 0 || dayIdx === 6);
 
@@ -251,8 +262,15 @@ $(document).ready(function() {
                     const timesHtml = f.times.map(timeObj => {
                         const isFull = timeObj.t === 'FULL';
                         const statusClass = timeObj.s === 'Cepat!' ? 'fast' : (isFull ? 'full' : '');
-                        const urlParams = `?cinema=${encodeURIComponent(state.cinema)}&movie=${encodeURIComponent(m.title)}&time=${encodeURIComponent(timeObj.t)}&price=${basePrice}`;
-                        const action = isFull ? '' : `onclick="window.location.href='../Pemesanan-Tiket/seats.html${urlParams}'"`;
+                        const params = new URLSearchParams({
+                            film: BOOKING_FILM_KEYS[m.title] || 'resident-evil',
+                            bioskop: state.cinema,
+                            tanggal: dateValue,
+                            jam: timeObj.t,
+                            harga: String(basePrice),
+                            kota: state.region
+                        });
+                        const action = isFull ? '' : `onclick="window.location.href='../Pemesanan-Tiket/index.html?${params.toString()}'"`;
                         
                         return `
                             <div class="t-btn-wrapper">

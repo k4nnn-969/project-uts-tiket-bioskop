@@ -45,7 +45,7 @@
       modal.innerHTML = `
         <section class="modal" role="dialog" aria-modal="true" aria-labelledby="auth-title">
           <button class="close" type="button" aria-label="Tutup dialog">×</button>
-          <a class="brand" href="../fitur-pendukung/index.html" aria-label="TIX ID"><span class="brand-tix">TIX</span><span class="brand-id">ID</span></a>
+          <a class="brand" href="../home-movie/index.html" aria-label="TIX ID"><span class="brand-tix">TIX</span><span class="brand-id">ID</span></a>
           <h2 id="auth-title">Selamat datang!</h2>
           <p class="subtitle">Masuk untuk melanjutkan pengalaman nontonmu.</p>
           <form class="auth-form" id="auth-form">
@@ -53,6 +53,7 @@
             <label class="auth-field">Kata sandi<input id="auth-password" type="password" autocomplete="current-password" placeholder="Masukkan kata sandi" required></label>
             <button class="auth-submit" type="submit" id="auth-submit">Login</button>
           </form>
+          <p class="legal">Belum punya akun? <a href="../profile-eticket-history/page/auth.html">Daftar sekarang</a>.</p>
           <p class="legal">Dengan melanjutkan, kamu menyetujui Syarat &amp; Ketentuan serta Kebijakan Privasi TIX ID.</p>
         </section>`;
       document.body.append(modal);
@@ -70,6 +71,8 @@
 
   ensureAuthElements();
 
+  if (document.querySelector('#auth-modal .tabs') && document.getElementById('tab-register')) return;
+
   const modal = document.getElementById('auth-modal');
   const form = document.getElementById('auth-form');
   const toast = document.getElementById('toast');
@@ -77,7 +80,7 @@
   const logoutButton = document.getElementById('auth-logout');
   const contactInput = document.getElementById('auth-contact');
   const passwordInput = document.getElementById('auth-password');
-  const storageKey = 'cinema-booking-user';
+  const storageKey = 'tix_current_user';
   let toastTimer;
 
   document.querySelector('.tabs')?.remove();
@@ -103,7 +106,18 @@
     document.querySelectorAll('[data-open-auth]').forEach((button) => {
       button.hidden = isLoggedIn;
     });
-    accountName.textContent = isLoggedIn ? `Hai, ${user.email}` : '';
+    accountName.textContent = isLoggedIn ? `Hai, ${user.name || user.email}` : '';
+    let profileLink = document.getElementById('account-link');
+    const accountControls = document.querySelector('.nav-actions, .auth-controls');
+    if (!profileLink && accountControls) {
+      profileLink = document.createElement('a');
+      profileLink.id = 'account-link';
+      profileLink.className = 'login';
+      profileLink.href = '../profile-eticket-history/page/profile.html';
+      profileLink.textContent = 'Akun';
+      accountControls.append(profileLink);
+    }
+    if (profileLink) profileLink.hidden = !isLoggedIn;
   }
 
   function openModal() {
@@ -130,17 +144,23 @@
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    const email = contactInput.value.trim();
+    const email = contactInput.value.trim().toLowerCase();
     const password = passwordInput.value;
+    let users = [];
+    try {
+      const stored = JSON.parse(localStorage.getItem('tix_users') || '[]');
+      if (Array.isArray(stored)) users = stored;
+    } catch {}
+    const user = users.find((item) => item.email === email && item.password === password);
 
-    if (!email || !password.trim()) {
-      showMessage('Email dan kata sandi wajib diisi.');
+    if (!user) {
+      showMessage('Email atau kata sandi salah. Silakan daftar jika belum memiliki akun.');
       return;
     }
 
     localStorage.setItem(storageKey, email);
-    updateAccount({ email });
-    showMessage(`Login berhasil. Selamat datang, ${email}.`);
+    updateAccount(user);
+    showMessage(`Login berhasil. Selamat datang, ${user.name || email}.`);
     form.reset();
     closeModal();
   });
@@ -152,5 +172,10 @@
   });
 
   const savedEmail = localStorage.getItem(storageKey);
-  updateAccount(savedEmail ? { email: savedEmail } : null);
+  let savedUsers = [];
+  try {
+    const stored = JSON.parse(localStorage.getItem('tix_users') || '[]');
+    if (Array.isArray(stored)) savedUsers = stored;
+  } catch {}
+  updateAccount(savedUsers.find((user) => user.email === savedEmail) || null);
 })();

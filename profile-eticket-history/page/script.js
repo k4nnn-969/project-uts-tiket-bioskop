@@ -80,14 +80,14 @@ function setupProfile(){
     const users=getUsers().map(u=>u.email===user.email?user:u);saveUsers(users);render();
     document.getElementById('edit-card').style.display='none';toast('Profile berhasil diperbarui.');
   };
-  document.getElementById('logout-btn').onclick=()=>{localStorage.removeItem(CURRENT_USER_KEY);location.href='../fitur-pendukung/index.html'};
+  document.getElementById('logout-btn').onclick=()=>{localStorage.removeItem(CURRENT_USER_KEY);location.href='../../home-movie/index.html'};
 }
 
 function myPaidOrders(){
   return getOrders().filter(o=>o.email===currentEmail() && o.status==='PAID').sort((a,b)=>new Date(b.paidAt||b.createdAt)-new Date(a.paidAt||a.createdAt));
 }
 function emptyBlock(title,text,linkText='Pesan Tiket'){
-  return `<div class="card empty"><div class="empty-icon">🎟️</div><h3>${title}</h3><p>${text}</p><div class="actions" style="justify-content:center"><a class="btn primary" href="../Bioskop-Jadwal/cinemas.html">${linkText}</a></div></div>`;
+  return `<div class="card empty"><div class="empty-icon">🎟️</div><h3>${title}</h3><p>${text}</p><div class="actions" style="justify-content:center"><a class="btn primary" href="../../Bioskop-Jadwal/cinemas.html">${linkText}</a></div></div>`;
 }
 function setupHistory(){
   if(!requireLogin())return;

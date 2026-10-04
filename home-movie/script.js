@@ -23,6 +23,32 @@ function authMode(mode) {
   document.getElementById('auth-submit').textContent = registering ? 'Daftar sekarang' : 'Login';
 }
 
+function getUsers() {
+  try {
+    const users = JSON.parse(localStorage.getItem('tix_users') || '[]');
+    return Array.isArray(users) ? users : [];
+  } catch {
+    return [];
+  }
+}
+
+function updateAccount(user) {
+  document.querySelectorAll('[data-open-auth]').forEach(button => {
+    button.hidden = Boolean(user);
+  });
+  let accountLink = document.getElementById('account-link');
+  const navActions = document.querySelector('.nav-actions');
+  if (!accountLink && navActions) {
+    accountLink = document.createElement('a');
+    accountLink.id = 'account-link';
+    accountLink.className = 'login';
+    accountLink.href = '../profile-eticket-history/page/profile.html';
+    accountLink.textContent = 'Akun saya';
+    navActions.append(accountLink);
+  }
+  if (accountLink) accountLink.hidden = !user;
+}
+
 function openAuth() {
   modal.classList.add('is-open');
   document.body.style.overflow = 'hidden';
@@ -43,11 +69,43 @@ document.getElementById('tab-register').addEventListener('click', () => authMode
 
 document.getElementById('auth-form').addEventListener('submit', event => {
   event.preventDefault();
-  notify(document.getElementById('tab-register').getAttribute('aria-selected') === 'true' 
-    ? 'Form pendaftaran siap. Hubungkan ke layanan akun untuk aktivasi.' 
-    : 'Form login siap. Hubungkan ke layanan akun untuk melanjutkan.');
+  const emailInput = document.getElementById('auth-contact');
+  const passwordInput = document.getElementById('auth-password');
+  const email = emailInput.value.trim().toLowerCase();
+  const password = passwordInput.value;
+  const registering = document.getElementById('tab-register').getAttribute('aria-selected') === 'true';
+  const users = getUsers();
+  let user;
+
+  if (registering) {
+    if (users.some(item => item.email === email)) {
+      notify('Email sudah terdaftar. Silakan login.');
+      return;
+    }
+    user = { name: document.getElementById('auth-name').value.trim(), email, password, city: 'Jakarta' };
+    users.push(user);
+    localStorage.setItem('tix_users', JSON.stringify(users));
+  } else {
+    user = users.find(item => item.email === email && item.password === password);
+    if (!user) {
+      notify('Email atau kata sandi salah. Jika belum punya akun, silakan daftar.');
+      return;
+    }
+  }
+
+  localStorage.setItem('tix_current_user', email);
+  updateAccount(user);
+  notify(registering ? 'Akun berhasil dibuat.' : `Login berhasil. Selamat datang, ${user.name || email}.`);
+  event.currentTarget.reset();
+  authMode('login');
   closeAuth();
 });
+
+document.getElementById('auth-contact').type = 'email';
+document.getElementById('auth-contact').autocomplete = 'email';
+document.querySelector('.auth-field').firstChild.textContent = 'Email';
+const currentEmail = localStorage.getItem('tix_current_user');
+updateAccount(getUsers().find(user => user.email === currentEmail) || null);
 
 // COPY PROMO CODE
 document.querySelectorAll('[data-copy]').forEach(button => button.addEventListener('click', async () => {
@@ -93,12 +151,14 @@ document.querySelectorAll('.buy').forEach(button => {
 });
 
 // CITY SELECT & SEARCH
-document.getElementById('city-select').addEventListener('change', event => {
-  document.getElementById('current-city').textContent = event.target.value;
+const citySelect = document.getElementById('city-select');
+citySelect?.addEventListener('change', event => {
+  const currentCity = document.getElementById('current-city');
+  if (currentCity) currentCity.textContent = event.target.value;
   notify(`Kota diubah ke ${event.target.value}.`);
 });
 
-document.getElementById('search-form').addEventListener('submit', event => {
+document.getElementById('search-form')?.addEventListener('submit', event => {
   event.preventDefault();
   const query = document.getElementById('movie-search').value.trim().toLowerCase();
   let count = 0;
@@ -107,32 +167,34 @@ document.getElementById('search-form').addEventListener('submit', event => {
     card.hidden = !visible;
     if (visible) count++;
   });
-  document.getElementById('empty-state').style.display = count ? 'none' : 'block';
-  document.getElementById('segera-tayang').scrollIntoView({ behavior: 'smooth' });
+  const emptyState = document.getElementById('empty-state');
+  if (emptyState) emptyState.style.display = count ? 'none' : 'block';
+  document.getElementById('segera-tayang')?.scrollIntoView({ behavior: 'smooth' });
 });
 
 // NAVBAR MOBILE MENU
 const menu = document.querySelector('.menu');
-menu.addEventListener('click', () => {
+menu?.addEventListener('click', () => {
   const expanded = menu.getAttribute('aria-expanded') === 'true';
   menu.setAttribute('aria-expanded', String(!expanded));
-  document.getElementById('main-nav').classList.toggle('open', !expanded);
+  document.getElementById('main-nav')?.classList.toggle('open', !expanded);
 });
 
 document.querySelectorAll('#main-nav a').forEach(link => link.addEventListener('click', () => {
-  document.getElementById('main-nav').classList.remove('open');
-  menu.setAttribute('aria-expanded', 'false');
+  document.getElementById('main-nav')?.classList.remove('open');
+  menu?.setAttribute('aria-expanded', 'false');
 }));
 
-document.getElementById('location-button').addEventListener('click', () => {
-  document.getElementById('city-select').focus();
-  document.getElementById('cari-film').scrollIntoView({ behavior: 'smooth', block: 'center' });
+document.getElementById('location-button')?.addEventListener('click', () => {
+  citySelect?.focus();
+  document.getElementById('cari-film')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
-    if (detailModal.classList.contains('is-open')) closeMovieDetail();
-    if (modal.classList.contains('is-open')) closeAuth();
+    const detailModal = document.getElementById('detail-modal');
+    if (detailModal?.classList.contains('is-open')) closeMovieDetail();
+    if (modal?.classList.contains('is-open')) closeAuth();
   }
 });
 

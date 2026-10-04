@@ -172,9 +172,11 @@
         <span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span>
       </a>
       <nav class="links" id="main-nav">
+        <a href="index.html">Home</a>
+        <a href="../Bioskop-Jadwal/cinemas.html">Bioskop &amp; Jadwal</a>
+        <a href="../profile-eticket-history/page/history.html">Booking History</a>
         <a href="index.html#promo">Promotions</a>
         <a href="movies.html?status=coming-soon">Coming Soon</a>
-        <a href="index.html#fitur">Fitur Pendukung</a>
       </nav>
     </div>
   </header>
@@ -259,13 +261,14 @@
       const grid = document.getElementById('movies-grid');
       grid.innerHTML = '';
 
-      const today = new Date('2026-10-03');
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
 
       let count = 0;
 
       Object.keys(moviesData).forEach(key => {
         const movie = moviesData[key];
-        const releaseDate = new Date(movie.releaseDateISO);
+        const releaseDate = new Date(`${movie.releaseDateISO}T00:00:00`);
         
         const isNowShowing = today >= releaseDate;
 

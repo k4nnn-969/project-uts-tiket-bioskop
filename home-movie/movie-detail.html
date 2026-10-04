@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=main-fix-1">
   <style>
     .detail-hero {
       background: var(--navy);
@@ -251,9 +251,11 @@
         <span class="brand-tix">TIX</span><span class="brand-id">ID</span><span class="brand-dot"></span>
       </a>
       <nav class="links" id="main-nav" aria-label="Navigasi utama">
+        <a href="movies.html">Movies</a>
+        <a href="../Bioskop-Jadwal/cinemas.html">Bioskop &amp; Jadwal</a>
         <a href="index.html#promo">Promotions</a>
         <a href="index.html#segera-tayang">Coming Soon</a>
-        <a href="index.html#fitur">Fitur Pendukung</a>
+        <a href="../profile-eticket-history/page/history.html">Booking History</a>
       </nav>
       <div class="nav-actions">
         <button class="location" id="location-button" type="button">
@@ -384,7 +386,7 @@
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=main-fix-1"></script>
   <script>
     const moviesData = {
       'resident-evil': {
@@ -501,7 +503,8 @@
 
       if (movie) {
         const today = new Date();
-        const releaseDate = new Date(movie.releaseDateISO);
+        today.setHours(0, 0, 0, 0);
+        const releaseDate = new Date(`${movie.releaseDateISO}T00:00:00`);
         const statusElement = document.getElementById('detail-status');
 
         const btnBuy = document.getElementById('btn-buy-ticket');
