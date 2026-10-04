@@ -220,6 +220,7 @@ button { cursor: pointer; }
 .store-badge:hover { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.3); }
 .footer-bottom { border-top: 1px solid rgba(255, 255, 255, 0.1); padding: 24px 0; text-align: center; font-size: 12px; font-weight: 500; color: rgba(255, 255, 255, 0.5); background: rgba(0, 0, 0, 0.15); }
 
+
 @media (max-width: 1024px) { .layout-grid { grid-template-columns: 320px 1fr; gap: 24px; } }
 @media (max-width: 950px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; } }
 @media (max-width: 850px) { .layout-grid { grid-template-columns: 1fr; } .sidebar { position: static; max-height: none; } .dash-hero { height: 200px; padding: 24px; } .m-item { flex-direction: column; gap: 20px; } .m-poster { width: 120px; } }

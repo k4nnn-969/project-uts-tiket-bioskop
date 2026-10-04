@@ -273,6 +273,7 @@ $(document).ready(function() {
                     `;
                 }).join('');
 
+                
                 return `
                     <div class="m-item" style="animation-delay: ${index * 0.1}s">
                         <img src="${m.poster}" onerror="this.onerror=null; this.src='${m.fallbackImg}';" class="m-poster" alt="${m.title}">
