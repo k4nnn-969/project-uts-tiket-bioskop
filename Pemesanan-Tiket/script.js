@@ -6,7 +6,7 @@ const filmOptions={
   'forgotten-island':{title:'Forgotten Island',genre:'KOMEDI · KELUARGA',age:'SU',rating:'8.4',image:'../img/Forgotten_Island.webp',price:45000,date:'',shortDate:'',cinema:'Senayan City XXI'},
   'fall-2-deadpoint':{title:'Fall 2: Deadpoint',genre:'THRILLER · PETUALANGAN',age:'R13+',rating:'8.2',image:'../img/Fall_2.webp',price:50000,date:'',shortDate:'',cinema:'Senayan City XXI'},
   'digger':{title:'Digger',genre:'KOMEDI · DRAMA',age:'R13+',rating:'8.0',image:'../img/Digger.webp',price:45000,date:'',shortDate:'',cinema:'Senayan City XXI'},
-  'memburu-pemangsa':{title:'Memburu Pemangsa',genre:'ACTION · CRIME',age:'R17+',rating:'9.4',image:'https://picsum.photos/seed/memburu/300/450',price:45000,date:'',shortDate:'',cinema:'Senayan City XXI'},
+  'memburu-pemangsa':{title:'Memburu Pemangsa',genre:'ACTION · CRIME',age:'R17+',rating:'9.4',image:'https://www.jadwalnonton.com/data/images/movies/2026/Poster-Memburu-Pemangsa-vc_300x450.webp',price:45000,date:'',shortDate:'',cinema:'Senayan City XXI'},
   'avengers-endgame-encore':{title:'Avengers Endgame: Encore',genre:'ACTION · SCI-FI',age:'R13+',rating:'9.7',image:'https://upload.wikimedia.org/wikipedia/en/0/0d/Avengers_Endgame_poster.jpg',price:75000,date:'',shortDate:'',cinema:'Senayan City XXI'}
 };
 const query=new URLSearchParams(window.location.search),filmKey=query.get('film')||'last-frontier',film=filmOptions[filmKey]||filmOptions['last-frontier'];

@@ -3,60 +3,36 @@ $(document).ready(function() {
 
     const SYSTEM_DATE = new Date();
     SYSTEM_DATE.setHours(0, 0, 0, 0);
-    
-    function initTheme() {
-        const savedTheme = localStorage.getItem('tix_theme') || 'light';
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        updateThemeIcon(savedTheme);
-    }
-
-    function updateThemeIcon(theme) {
-        if(theme === 'dark') {
-            $('.sun-icon').hide();$('.moon-icon').show();
-        } else {
-            $('.sun-icon').show();$('.moon-icon').hide();
-        }
-    }
-
-    $('#themeToggle').on('click', function() {
-        const currentTheme = document.documentElement.getAttribute('data-theme');
-        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-        document.documentElement.setAttribute('data-theme', newTheme);
-        localStorage.setItem('tix_theme', newTheme);
-        updateThemeIcon(newTheme);
-    });
-
-    initTheme();
 
     const getFallback = (title) => `https://placehold.co/300x450/1e293b/ffffff?text=${encodeURIComponent(title)}&font=montserrat`;
 
     const DB_MOVIES = [
         { 
             id: "M01", title: "Resident Evil", genre: "Horror, Thriller", rate: "⭐ 9.0", age: "17+", 
-            poster: "https://upload.wikimedia.org/wikipedia/en/a/a1/Resident_Evil_2002_film_poster.jpg", 
+            poster: "../img/Resident_Evil.webp",
             fallbackImg: getFallback("Resident Evil"), 
             formats: [{ type: "REGULAR 2D", price: 50000, times: [{t:"13:00", s:"Tersedia"}, {t:"15:30", s:"Cepat!"}, {t:"20:00", s:"Tersedia"}] }, { type: "THE PREMIERE", price: 100000, times: [{t:"14:15", s:"Tersedia"}, {t:"18:45", s:"Cepat!"}] }] 
         },
         { 
-            id: "M02", title: "Forgotten Island", genre: "Adventure, Comedy", rate: "⭐ 8.4", age: "SU",             poster: "https://picsum.photos/seed/island/300/450", 
+            id: "M02", title: "Forgotten Island", genre: "Adventure, Comedy", rate: "⭐ 8.4", age: "SU",             poster: "../img/Forgotten_Island.webp",
             fallbackImg: getFallback("Forgotten Island"), 
             formats: [{ type: "REGULAR 2D", price: 40000, times: [{t:"10:00", s:"Tersedia"}, {t:"12:15", s:"Tersedia"}, {t:"14:30", s:"Cepat!"}, {t:"FULL", s:"Habis"}] }] 
         },
         { 
             id: "M03", title: "Fall 2: Deadpoint", genre: "Thriller, Survival", rate: "⭐ 8.7", age: "17+", 
-            poster: "https://upload.wikimedia.org/wikipedia/en/2/29/Fall_%282022_film%29.jpg", 
+            poster: "../img/Fall_2.webp",
             fallbackImg: getFallback("Fall 2"), 
             formats: [{ type: "REGULAR 2D", price: 45000, times: [{t:"16:00", s:"Tersedia"}, {t:"18:30", s:"Cepat!"}, {t:"21:00", s:"Tersedia"}] }] 
         },
         { 
             id: "M04", title: "Digger", genre: "Drama, Action", rate: "⭐ 8.2", age: "13+", 
-            poster: "https://picsum.photos/seed/digger/300/450", 
+            poster: "../img/Digger.webp",
             fallbackImg: getFallback("Digger"), 
             formats: [{ type: "REGULAR 2D", price: 45000, times: [{t:"11:30", s:"Tersedia"}, {t:"14:00", s:"Cepat!"}] }] 
         },
         { 
             id: "M05", title: "Memburu Pemangsa", genre: "Action, Crime", rate: "⭐ 9.4", age: "17+", 
-            poster: "https://picsum.photos/seed/memburu/300/450", 
+            poster: "https://www.jadwalnonton.com/data/images/movies/2026/Poster-Memburu-Pemangsa-vc_300x450.webp",
             fallbackImg: getFallback("Memburu"), 
             formats: [{ type: "REGULAR 2D", price: 45000, times: [{t:"12:20", s:"Tersedia"}, {t:"14:45", s:"Tersedia"}, {t:"FULL", s:"Habis"}] }] 
         },
@@ -68,7 +44,7 @@ $(document).ready(function() {
         },
         { 
             id: "M07", title: "The Last Frontier", genre: "Sci-Fi, Adventure", rate: "⭐ 9.1", age: "13+", 
-            poster: "https://picsum.photos/seed/frontier/300/450", 
+            poster: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=300&h=450&q=80",
             fallbackImg: getFallback("The Last Frontier"), 
             formats: [{ type: "REGULAR 2D", price: 45000, times: [{t:"13:15", s:"Tersedia"}, {t:"15:45", s:"Tersedia"}, {t:"18:15", s:"Cepat!"}, {t:"20:45", s:"Tersedia"}] }] 
         }
@@ -108,7 +84,7 @@ $(document).ready(function() {
     RAW_CINEMAS.forEach(c => {
         let shuffled = [...DB_MOVIES].sort(() => 0.5 - Math.random());
         let dist = (Math.random() * 15 + 1).toFixed(1);
-        DB_CINEMAS[c.name] = { ...c, distance: dist, movies: shuffled.slice(0, 4) };
+        DB_CINEMAS[c.name] = { ...c, distance: dist, movies: shuffled.slice(0, 6) };
     });
 
     const storageKey = 'tix_fav_cinemas_v5';
